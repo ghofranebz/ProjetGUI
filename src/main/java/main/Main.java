@@ -6,6 +6,7 @@ import java.sql.Connection;
 public class Main {
     public static void main(String[] args) {
         Mydb mydb = Mydb.getInstance();
+        MainFX.main(args);
         Connection cnx = mydb.getConnection();
 
         if (cnx != null) {

@@ -2,12 +2,9 @@ package entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 
 public class Animal {
-
-    public enum AvailabilityStatus {
-        AVAILABLE, PENDING, ADOPTED, PUBLISHED, REJECTED
-    }
 
     private int id;
     private int ownerId;
@@ -18,7 +15,6 @@ public class Animal {
     private String gender;
     private float weight;
     private String color;
-    private AvailabilityStatus availabilityStatus;
     private boolean isNeutered;
     private String microchipNumber;
     private String photo;
@@ -28,7 +24,7 @@ public class Animal {
     // Empty constructor
     public Animal() {}
 
-    // Constructor for adding new animal
+    // Constructor for adding new animal (availabilityStatus removed)
     public Animal(int ownerId, String name, String species, String breed,
                   LocalDate birthDate, String gender, float weight,
                   String color, boolean isNeutered, String microchipNumber, String photo) {
@@ -43,16 +39,14 @@ public class Animal {
         this.isNeutered = isNeutered;
         this.microchipNumber = microchipNumber;
         this.photo = photo;
-        this.availabilityStatus = AvailabilityStatus.PENDING;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
-    // Full constructor (from database)
+    // Full constructor from database (availabilityStatus removed)
     public Animal(int id, int ownerId, String name, String species, String breed,
                   LocalDate birthDate, String gender, float weight, String color,
-                  String availabilityStatus, boolean isNeutered,
-                  String microchipNumber, String photo,
+                  boolean isNeutered, String microchipNumber, String photo,
                   LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.ownerId = ownerId;
@@ -63,7 +57,6 @@ public class Animal {
         this.gender = gender;
         this.weight = weight;
         this.color = color;
-        this.availabilityStatus = AvailabilityStatus.valueOf(availabilityStatus);
         this.isNeutered = isNeutered;
         this.microchipNumber = microchipNumber;
         this.photo = photo;
@@ -74,7 +67,7 @@ public class Animal {
     // Business methods
     public int getAge() {
         if (birthDate == null) return 0;
-        return LocalDate.now().getYear() - birthDate.getYear();
+        return Period.between(birthDate, LocalDate.now()).getYears();
     }
 
     // Getters and Setters
@@ -105,10 +98,6 @@ public class Animal {
     public String getColor() { return color; }
     public void setColor(String color) { this.color = color; }
 
-    public AvailabilityStatus getAvailabilityStatus() { return availabilityStatus; }
-    public void setAvailabilityStatus(AvailabilityStatus status) { this.availabilityStatus = status; }
-    public void setAvailabilityStatus(String status) { this.availabilityStatus = AvailabilityStatus.valueOf(status); }
-
     public boolean isNeutered() { return isNeutered; }
     public void setNeutered(boolean neutered) { isNeutered = neutered; }
 
@@ -133,7 +122,6 @@ public class Animal {
                 ", breed='" + breed + '\'' +
                 ", age=" + getAge() +
                 ", gender='" + gender + '\'' +
-                ", status=" + availabilityStatus +
                 '}';
     }
 }

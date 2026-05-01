@@ -43,10 +43,6 @@ public class TestAnimalCRUD {
             System.out.println("\nAnimals owned by user 1:");
             ownerAnimals.forEach(System.out::println);
 
-            // 5) Get animals by status
-            List<Animal> pendingAnimals = animalService.getByStatus("PENDING");
-            System.out.println("\nPending animals:");
-            pendingAnimals.forEach(System.out::println);
 
             // 6) Get animals by species
             List<Animal> dogs = animalService.getBySpecies("Dog");
@@ -57,7 +53,6 @@ public class TestAnimalCRUD {
             if (found != null) {
                 found.setWeight(32.0f);
                 found.setColor("Light Golden");
-                found.setAvailabilityStatus("AVAILABLE");
                 animalService.update(found);
                 System.out.println("\nUpdated: " + animalService.getById(found.getId()));
             }
