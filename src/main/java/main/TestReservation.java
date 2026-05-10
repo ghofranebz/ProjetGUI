@@ -2,8 +2,8 @@ package main;
 
 import entities.Reservation;
 import entities.Service;
-import services.ServiceReservation;
-import services.Serviceanimal;
+import services.serviceReservation;
+import services.serviceanimal;
 
 import java.util.List;
 import java.util.Scanner;
@@ -12,17 +12,17 @@ public class TestReservation {
 
     public static void main(String[] args) {
 
-        Serviceanimal serviceAnimal = new Serviceanimal();
-        ServiceReservation serviceReservation = new ServiceReservation();
+        serviceanimal serviceAnimal = new serviceanimal();
+        serviceReservation serviceReservationIslem = new serviceReservation();
         Scanner sc = new Scanner(System.in);
 
         try {
 
 
-            List<Service> allServices = serviceAnimal.getAllEntities();
+            List<Service> allServiceIslems = serviceAnimal.getAllEntities();
 
             System.out.println("\n=== Liste des services ===");
-            allServices.forEach(System.out::println);
+            allServiceIslems.forEach(System.out::println);
 
 
             System.out.println("\n=== Ajouter une réservation ===");
@@ -54,15 +54,15 @@ public class TestReservation {
             r.setCancelled_reason(null);
 
 
-            serviceReservation.addEntity(r);
+            serviceReservationIslem.addEntity(r);
 
             System.out.println("Réservation ajoutée avec prix calculé automatiquement !");
 
 
-            List<Reservation> allReservations = serviceReservation.getAllEntities();
+            List<Reservation> allReservationIslems = serviceReservationIslem.getAllEntities();
 
             System.out.println("\n=== Liste des réservations ===");
-            allReservations.forEach(System.out::println);
+            allReservationIslems.forEach(System.out::println);
 
 
             System.out.print("\nID réservation à annuler : ");
@@ -72,7 +72,7 @@ public class TestReservation {
             System.out.print("Raison annulation : ");
             String reason = sc.nextLine();
 
-            serviceReservation.annulerReservation(idCancel, reason);
+            serviceReservationIslem.annulerReservation(idCancel, reason);
 
 
             System.out.print("\nID service à supprimer : ");

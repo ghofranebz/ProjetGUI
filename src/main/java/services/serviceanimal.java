@@ -7,39 +7,39 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Serviceanimal implements ICrud<Service> {
+public class serviceanimal implements ICrud<Service> {
 
     Connection connection;
 
-    public Serviceanimal() {
+    public serviceanimal() {
         connection = Mydb.getInstance().getConnection();
     }
 
     // ================= ADD =================
 
     @Override
-    public void addEntity(Service service) {
-        addEntity2(service);
+    public void addEntity(Service serviceIslem) {
+        addEntity2(serviceIslem);
     }
 
     @Override
-    public void addEntity2(Service service) {
+    public void addEntity2(Service serviceIslem) {
 
         String req = "INSERT INTO services(title, type, description, tarif, localisation, user_id, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement pst = connection.prepareStatement(req);
 
-            pst.setString(1, service.getTitle());
-            pst.setString(2, service.getType());
-            pst.setString(3, service.getDescription());
-            pst.setFloat(4, service.getTarif());
-            pst.setString(5, service.getLocalisation());
-            pst.setInt(6, service.getUser_id());
-            pst.setTimestamp(7, Timestamp.valueOf(service.getCreatedAt()));
+            pst.setString(1, serviceIslem.getTitle());
+            pst.setString(2, serviceIslem.getType());
+            pst.setString(3, serviceIslem.getDescription());
+            pst.setFloat(4, serviceIslem.getTarif());
+            pst.setString(5, serviceIslem.getLocalisation());
+            pst.setInt(6, serviceIslem.getUser_id());
+            pst.setTimestamp(7, Timestamp.valueOf(serviceIslem.getCreatedAt()));
 
             // 🔥 Sécurité : si status est null, mettre "en_attente"
-            String status = service.getStatus();
+            String status = serviceIslem.getStatus();
             pst.setString(8, (status != null && !status.isEmpty()) ? status : "en_attente");
 
             pst.executeUpdate();
@@ -102,20 +102,20 @@ public class Serviceanimal implements ICrud<Service> {
 
     // 🔥 CORRECTION : updateEntity avec status
     @Override
-    public void updateEntity(int id, Service service) {
+    public void updateEntity(int id, Service serviceIslem) {
         String req = "UPDATE services SET title=?, type=?, description=?, tarif=?, localisation=?, user_id=?, created_at=?, status=? WHERE id_service=?";
 
         try {
             PreparedStatement pst = connection.prepareStatement(req);
 
-            pst.setString(1, service.getTitle());
-            pst.setString(2, service.getType());
-            pst.setString(3, service.getDescription());
-            pst.setFloat(4, service.getTarif());
-            pst.setString(5, service.getLocalisation());
-            pst.setInt(6, service.getUser_id());
-            pst.setTimestamp(7, Timestamp.valueOf(service.getCreatedAt()));
-            pst.setString(8, service.getStatus() != null ? service.getStatus() : "en_attente");
+            pst.setString(1, serviceIslem.getTitle());
+            pst.setString(2, serviceIslem.getType());
+            pst.setString(3, serviceIslem.getDescription());
+            pst.setFloat(4, serviceIslem.getTarif());
+            pst.setString(5, serviceIslem.getLocalisation());
+            pst.setInt(6, serviceIslem.getUser_id());
+            pst.setTimestamp(7, Timestamp.valueOf(serviceIslem.getCreatedAt()));
+            pst.setString(8, serviceIslem.getStatus() != null ? serviceIslem.getStatus() : "en_attente");
             pst.setInt(9, id);
 
             pst.executeUpdate();
@@ -267,7 +267,7 @@ public class Serviceanimal implements ICrud<Service> {
     }
 
     @Override
-    public void addReservation(Service service) {}
+    public void addReservation(Service serviceIslem) {}
 
     @Override
     public void annulerReservation(int id, String raison) {}

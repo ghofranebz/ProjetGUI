@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import services.ServiceReservation;
-import services.Serviceanimal;
+import services.serviceReservation;
+import services.serviceanimal;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,11 +33,11 @@ public class PrestataireGestionReservationController {
     @FXML
     private Label statRevenus;
 
-    private final ServiceReservation serviceReservation = new ServiceReservation();
-    private final Serviceanimal serviceAnimal = new Serviceanimal();
+    private final serviceReservation serviceReservationIslem = new serviceReservation();
+    private final serviceanimal serviceAnimal = new serviceanimal();
 
-    private List<Reservation> toutesLesReservations;
-    private List<Service> mesServices;
+    private List<Reservation> toutesLesReservationIslems;
+    private List<Service> mesServiceIslems;
 
     // 🔥 ID du prestataire connecté (à remplacer par l'ID de session)
     private int currentPrestataireId = 1;
@@ -60,36 +60,36 @@ public class PrestataireGestionReservationController {
 
     private void chargerDonnees() {
         // Charger les services du prestataire
-        mesServices = serviceAnimal.getReservationsByUser(currentPrestataireId);
+        mesServiceIslems = serviceAnimal.getReservationsByUser(currentPrestataireId);
 
         // Charger les réservations reçues
-        toutesLesReservations = serviceReservation.getReservationsByPrestataire(currentPrestataireId);
+        toutesLesReservationIslems = serviceReservationIslem.getReservationsByPrestataire(currentPrestataireId);
 
         // Mettre à jour les statistiques
         mettreAJourStatistiques();
 
         // Afficher toutes les réservations
-        afficherReservations(toutesLesReservations);
+        afficherReservations(toutesLesReservationIslems);
     }
 
     private void mettreAJourStatistiques() {
-        long enAttente = toutesLesReservations.stream()
+        long enAttente = toutesLesReservationIslems.stream()
                 .filter(r -> "en_attente".equals(r.getStatus()))
                 .count();
 
-        long confirmees = toutesLesReservations.stream()
+        long confirmees = toutesLesReservationIslems.stream()
                 .filter(r -> "confirmee".equals(r.getStatus()))
                 .count();
 
-        long refusees = toutesLesReservations.stream()
+        long refusees = toutesLesReservationIslems.stream()
                 .filter(r -> "refusee".equals(r.getStatus()))
                 .count();
 
-        long annulees = toutesLesReservations.stream()
+        long annulees = toutesLesReservationIslems.stream()
                 .filter(r -> "annulee".equals(r.getStatus()))
                 .count();
 
-        double revenus = toutesLesReservations.stream()
+        double revenus = toutesLesReservationIslems.stream()
                 .filter(r -> "confirmee".equals(r.getStatus()))
                 .mapToDouble(Reservation::getTotal_price)
                 .sum();
@@ -106,34 +106,34 @@ public class PrestataireGestionReservationController {
         String statutSelectionne = filtreStatut.getValue();
 
         if (statutSelectionne == null || statutSelectionne.equals("Toutes")) {
-            afficherReservations(toutesLesReservations);
+            afficherReservations(toutesLesReservationIslems);
             return;
         }
 
         List<Reservation> filtrees;
         switch (statutSelectionne) {
             case "En attente":
-                filtrees = toutesLesReservations.stream()
+                filtrees = toutesLesReservationIslems.stream()
                         .filter(r -> "en_attente".equals(r.getStatus()))
                         .collect(Collectors.toList());
                 break;
             case "Confirmées":
-                filtrees = toutesLesReservations.stream()
+                filtrees = toutesLesReservationIslems.stream()
                         .filter(r -> "confirmee".equals(r.getStatus()))
                         .collect(Collectors.toList());
                 break;
             case "Refusées":
-                filtrees = toutesLesReservations.stream()
+                filtrees = toutesLesReservationIslems.stream()
                         .filter(r -> "refusee".equals(r.getStatus()))
                         .collect(Collectors.toList());
                 break;
             case "Annulées":
-                filtrees = toutesLesReservations.stream()
+                filtrees = toutesLesReservationIslems.stream()
                         .filter(r -> "annulee".equals(r.getStatus()))
                         .collect(Collectors.toList());
                 break;
             default:
-                filtrees = toutesLesReservations;
+                filtrees = toutesLesReservationIslems;
                 break;
         }
 
@@ -150,17 +150,17 @@ public class PrestataireGestionReservationController {
         showAlert("Actualisation", "Les données ont été actualisées", Alert.AlertType.INFORMATION);
     }
 
-    private void afficherReservations(List<Reservation> reservations) {
+    private void afficherReservations(List<Reservation> reservationIslems) {
         reservationsContainer.getChildren().clear();
 
-        if (reservations == null || reservations.isEmpty()) {
+        if (reservationIslems == null || reservationIslems.isEmpty()) {
             Label emptyLabel = new Label("📭 Aucune réservation trouvée");
             emptyLabel.getStyleClass().add("empty-label");
             reservationsContainer.getChildren().add(emptyLabel);
             return;
         }
 
-        for (Reservation r : reservations) {
+        for (Reservation r : reservationIslems) {
             VBox card = new VBox();
             card.getStyleClass().add("reservation-card");
             card.setSpacing(15);
@@ -231,7 +231,7 @@ public class PrestataireGestionReservationController {
                 accepterBtn.getStyleClass().add("success-button");
                 accepterBtn.setOnAction(event -> {
                     if (confirmerAction("Accepter cette réservation ?")) {
-                        serviceReservation.confirmerReservation(r.getId_booking());
+                        serviceReservationIslem.confirmerReservation(r.getId_booking());
                         chargerDonnees();
                         showAlert("Succès", "Réservation #" + r.getId_booking() + " acceptée", Alert.AlertType.INFORMATION);
                     }
@@ -241,7 +241,7 @@ public class PrestataireGestionReservationController {
                 refuserBtn.getStyleClass().add("danger-button");
                 refuserBtn.setOnAction(event -> {
                     if (confirmerAction("Refuser cette réservation ?")) {
-                        serviceReservation.refuserReservation(r.getId_booking());
+                        serviceReservationIslem.refuserReservation(r.getId_booking());
                         chargerDonnees();
                         showAlert("Succès", "Réservation #" + r.getId_booking() + " refusée", Alert.AlertType.INFORMATION);
                     }
@@ -274,7 +274,7 @@ public class PrestataireGestionReservationController {
     }
 
     private String getServiceName(int serviceId) {
-        for (Service s : mesServices) {
+        for (Service s : mesServiceIslems) {
             if (s.getId_services() == serviceId) {
                 return (s.getTitle() != null && !s.getTitle().isEmpty()) ? s.getTitle() : s.getType();
             }

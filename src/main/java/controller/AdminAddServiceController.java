@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.Node;
 import javafx.stage.Window;
-import services.Serviceanimal;
+import services.serviceanimal;
 
 import java.time.LocalDateTime;
 
@@ -23,7 +23,7 @@ public class AdminAddServiceController {
     @FXML
     private TextField localisationField;
 
-    private final Serviceanimal serviceAnimal = new Serviceanimal();
+    private final serviceanimal serviceAnimal = new serviceanimal();
 
     @FXML
     public void initialize() {
@@ -64,17 +64,17 @@ public class AdminAddServiceController {
         }
 
         try {
-            Service service = new Service();
-            service.setTitle(titleField.getText());
-            service.setType(typeField.getText());
-            service.setDescription(descriptionField.getText());
-            service.setTarif(Float.parseFloat(tarifField.getText()));
-            service.setLocalisation(localisationField.getText());
-            service.setUser_id(AdminNavigation.currentPrestataireId);
-            service.setCreatedAt(LocalDateTime.now());
-            service.setStatus("en_attente"); // 🔥 STATUS PAR DÉFAUT
+            Service serviceIslem = new Service();
+            serviceIslem.setTitle(titleField.getText());
+            serviceIslem.setType(typeField.getText());
+            serviceIslem.setDescription(descriptionField.getText());
+            serviceIslem.setTarif(Float.parseFloat(tarifField.getText()));
+            serviceIslem.setLocalisation(localisationField.getText());
+            serviceIslem.setUser_id(AdminNavigation.currentPrestataireId);
+            serviceIslem.setCreatedAt(LocalDateTime.now());
+            serviceIslem.setStatus("en_attente"); // 🔥 STATUS PAR DÉFAUT
 
-            serviceAnimal.addEntity(service);
+            serviceAnimal.addEntity(serviceIslem);
 
             showAlert("Succès", "Service ajouté avec succès !", Alert.AlertType.INFORMATION);
             viderChamps();

@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import services.ServiceReservation;
-import services.Serviceanimal;
+import services.serviceReservation;
+import services.serviceanimal;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ public class AdminReservationController {
     @FXML
     private TextField searchField;
 
-    private final ServiceReservation serviceReservation = new ServiceReservation();
-    private final Serviceanimal serviceAnimal = new Serviceanimal();
-    private List<Reservation> toutesLesReservations;
+    private final serviceReservation serviceReservationIslem = new serviceReservation();
+    private final serviceanimal serviceAnimal = new serviceanimal();
+    private List<Reservation> toutesLesReservationIslems;
 
     @FXML
     public void initialize() {
@@ -32,8 +32,8 @@ public class AdminReservationController {
     }
 
     private void afficherReservations() {
-        toutesLesReservations = serviceReservation.getAllReservations();
-        afficherCartesReservations(toutesLesReservations);
+        toutesLesReservationIslems = serviceReservationIslem.getAllReservations();
+        afficherCartesReservations(toutesLesReservationIslems);
     }
 
     @FXML
@@ -41,7 +41,7 @@ public class AdminReservationController {
         String keyword = searchField.getText().trim();
 
         if (keyword.isEmpty()) {
-            afficherCartesReservations(toutesLesReservations);
+            afficherCartesReservations(toutesLesReservationIslems);
             return;
         }
 
@@ -56,7 +56,7 @@ public class AdminReservationController {
 
         // Filtrer les réservations
         List<Reservation> resultats = new ArrayList<>();
-        for (Reservation r : toutesLesReservations) {
+        for (Reservation r : toutesLesReservationIslems) {
             if (serviceIds.contains(r.getId_service())) {
                 resultats.add(r);
             }
@@ -72,20 +72,20 @@ public class AdminReservationController {
     @FXML
     private void resetRecherche(ActionEvent event) {
         searchField.clear();
-        afficherCartesReservations(toutesLesReservations);
+        afficherCartesReservations(toutesLesReservationIslems);
     }
 
-    private void afficherCartesReservations(List<Reservation> reservations) {
+    private void afficherCartesReservations(List<Reservation> reservationIslems) {
         reservationsContainer.getChildren().clear();
 
-        if (reservations == null || reservations.isEmpty()) {
+        if (reservationIslems == null || reservationIslems.isEmpty()) {
             Label emptyLabel = new Label("Aucune réservation trouvée");
             emptyLabel.getStyleClass().add("empty-label");
             reservationsContainer.getChildren().add(emptyLabel);
             return;
         }
 
-        for (Reservation r : reservations) {
+        for (Reservation r : reservationIslems) {
             HBox card = new HBox();
             card.getStyleClass().add("data-card");
             card.setSpacing(25);
@@ -139,7 +139,7 @@ public class AdminReservationController {
                         "Supprimer la réservation n°" + r.getId_booking() + " ? Cette action est définitive.")) {
                     return;
                 }
-                serviceReservation.deleteEntity(r.getId_booking());
+                serviceReservationIslem.deleteEntity(r.getId_booking());
                 afficherReservations();
             });
 

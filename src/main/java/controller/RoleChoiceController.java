@@ -21,6 +21,12 @@ public class RoleChoiceController {
         AdminNavigation.homeDashboardFxml = "clientdashboard.fxml";
         AdminNavigation.servicesCatalogFxml = "clientservices.fxml";
         AdminNavigation.reservationsListFxml = "clientreservations.fxml";
+
+        // ✅ Mettre l'ID d'un vrai client qui existe dans ta base de données
+        if (AdminNavigation.currentClientId == null) {
+            AdminNavigation.currentClientId = 1; // ← change ce chiffre
+        }
+
         AdminNavigation.changeScene(event, "clientdashboard.fxml");
     }
 }

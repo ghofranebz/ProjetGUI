@@ -35,7 +35,7 @@
                         onAction="#goGestionReservations"
                         styleClass="primary-button"/>
 
-                <Button text="+ Ajouter service"
+                <Button text="+ Ajouter serviceIslem"
                         onAction="#goAddService"
                         styleClass="dark-button"/>
             </HBox>

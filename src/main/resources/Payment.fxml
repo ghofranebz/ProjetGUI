@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.Payment"
+            prefWidth="1200" prefHeight="750"
+            stylesheets="@/style.css"
+            styleClass="root client-app-root">
+
+    <left>
+        <VBox spacing="25" styleClass="client-sidebar">
+            <Label text="🐾 PURRLY" styleClass="client-logo"/>
+            <Separator orientation="HORIZONTAL" styleClass="sidebar-divider" maxWidth="Infinity"/>
+            <Button text="← Retour" onAction="#handleRetour" styleClass="client-menu-button"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox alignment="CENTER" spacing="0" styleClass="content client-content">
+
+            <!-- CARD PAIEMENT -->
+            <VBox alignment="CENTER" spacing="28" maxWidth="520"
+                  style="-fx-background-color: white; -fx-background-radius: 18;
+                         -fx-effect: dropshadow(gaussian, rgba(36,55,87,0.13), 24, 0, 0, 6);
+                         -fx-padding: 48 52 48 52;">
+
+                <!-- Titre -->
+                <Label text="💳 Paiement" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #243757;"/>
+
+                <Separator maxWidth="Infinity"/>
+
+                <!-- Infos réservation -->
+                <VBox spacing="12" maxWidth="Infinity">
+                    <Label fx:id="reservationIdLabel" text="Réservation #—"
+                           style="-fx-font-size: 15px; -fx-text-fill: #555;"/>
+                    <Label fx:id="serviceLabel" text="Service : —"
+                           style="-fx-font-size: 15px; -fx-text-fill: #555;"/>
+                    <Label fx:id="datesLabel" text="Dates : —"
+                           style="-fx-font-size: 15px; -fx-text-fill: #555;"/>
+                </VBox>
+
+                <Separator maxWidth="Infinity"/>
+
+                <!-- Montant -->
+                <VBox alignment="CENTER" spacing="6">
+                    <Label text="Montant à payer"
+                           style="-fx-font-size: 13px; -fx-text-fill: #888;"/>
+                    <Label fx:id="montantLabel" text="— DT"
+                           style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #243757;"/>
+                </VBox>
+
+                <!-- Loading -->
+                <VBox fx:id="loadingBox" alignment="CENTER" spacing="8">
+                    <ProgressIndicator prefWidth="36" prefHeight="36"/>
+                    <Label text="Connexion à Konnect..." style="-fx-text-fill: #888; -fx-font-size: 13px;"/>
+                </VBox>
+
+                <!-- Status message -->
+                <Label fx:id="statusLabel" text="" wrapText="true" maxWidth="400"
+                       style="-fx-font-size: 13px;" alignment="CENTER"/>
+
+                <!-- Bouton payer -->
+                <Button fx:id="payerButton"
+                        text="💳 Payer avec Konnect"
+                        onAction="#handlePayer"
+                        maxWidth="Infinity"
+                        styleClass="primary-button"
+                        style="-fx-font-size: 16px; -fx-padding: 14 0 14 0;"/>
+
+                <!-- Sécurité -->
+                <Label text="🔒 Paiement sécurisé via Konnect"
+                       style="-fx-font-size: 12px; -fx-text-fill: #aaa;"/>
+
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

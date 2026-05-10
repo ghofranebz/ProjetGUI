@@ -22,7 +22,7 @@
     <center>
         <VBox spacing="20" styleClass="content" alignment="TOP_CENTER">
 
-            <Label text="➕ Ajouter un nouveau service" styleClass="page-title"/>
+            <Label text="➕ Ajouter un nouveau serviceIslem" styleClass="page-title"/>
 
             <GridPane hgap="15" vgap="15" alignment="CENTER">
 
@@ -48,7 +48,7 @@
                            wrapText="true"
                            styleClass="subtitle"/>
                     <TextField fx:id="localisationField"
-                               promptText="Adresse précise enregistrée pour le service"
+                               promptText="Adresse précise enregistrée pour le serviceIslem"
                                prefWidth="420"
                                styleClass="input"/>
                 </VBox>

@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import services.Serviceanimal;
+import services.serviceanimal;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,7 @@ public class AdminServiceController {
     @FXML
     private VBox servicesContainer;
 
-    private final Serviceanimal serviceAnimal = new Serviceanimal();
+    private final serviceanimal serviceAnimal = new serviceanimal();
 
     @FXML
     public void initialize() {
@@ -26,16 +26,16 @@ public class AdminServiceController {
     private void afficherServices() {
         servicesContainer.getChildren().clear();
 
-        List<Service> services = serviceAnimal.getAllEntities();
+        List<Service> serviceIslems = serviceAnimal.getAllEntities();
 
-        if (services == null || services.isEmpty()) {
+        if (serviceIslems == null || serviceIslems.isEmpty()) {
             Label emptyLabel = new Label("Aucun service disponible");
             emptyLabel.getStyleClass().add("empty-label");
             servicesContainer.getChildren().add(emptyLabel);
             return;
         }
 
-        for (Service s : services) {
+        for (Service s : serviceIslems) {
             HBox card = new HBox();
             card.getStyleClass().add("data-card");
             card.setSpacing(25);

@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import services.Serviceanimal;
+import services.serviceanimal;
 
 import java.util.Optional;
 
@@ -14,7 +14,7 @@ public class AdminDeleteServiceController {
     @FXML
     private TextField idField;
 
-    private final Serviceanimal serviceanimal = new Serviceanimal();
+    private final serviceanimal serviceanimalIslem = new serviceanimal();
 
     @FXML
     public void initialize() {
@@ -34,7 +34,7 @@ public class AdminDeleteServiceController {
                 return;
             }
 
-            serviceanimal.deleteEntity(id);
+            serviceanimalIslem.deleteEntity(id);
 
             showAlert(Alert.AlertType.INFORMATION, "Service supprimé avec succès !");
             idField.clear();

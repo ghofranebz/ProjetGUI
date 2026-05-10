@@ -8,7 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.Node;
 import javafx.stage.Window;
-import services.Serviceanimal;
+import services.serviceanimal;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +32,7 @@ public class AdminUpdateServiceController {
     @FXML
     private TextField localisationField;
 
-    private final Serviceanimal serviceanimal = new Serviceanimal();
+    private final serviceanimal serviceanimalIslem = new serviceanimal();
 
     @FXML
     private void openMapPicker(ActionEvent event) {
@@ -55,7 +55,7 @@ public class AdminUpdateServiceController {
         try {
             int id = Integer.parseInt(idField.getText());
 
-            Service s = serviceanimal.getEntityById(id);
+            Service s = serviceanimalIslem.getEntityById(id);
 
             if (s != null) {
                 titleField.setText(s.getTitle());
@@ -79,8 +79,8 @@ public class AdminUpdateServiceController {
             int id = Integer.parseInt(idField.getText());
 
             // 🔥 Récupérer l'ancien service pour conserver le statut et le propriétaire (user_id)
-            Service oldService = serviceanimal.getEntityById(id);
-            if (oldService == null) {
+            Service oldServiceIslem = serviceanimalIslem.getEntityById(id);
+            if (oldServiceIslem == null) {
                 showAlert(Alert.AlertType.WARNING, "Service introuvable !");
                 return;
             }
@@ -94,10 +94,10 @@ public class AdminUpdateServiceController {
             s.setLocalisation(localisationField.getText());
             s.setCreatedAt(LocalDateTime.now());
 
-            s.setUser_id(oldService.getUser_id());
-            s.setStatus(oldService.getStatus() != null ? oldService.getStatus() : "en_attente");
+            s.setUser_id(oldServiceIslem.getUser_id());
+            s.setStatus(oldServiceIslem.getStatus() != null ? oldServiceIslem.getStatus() : "en_attente");
 
-            serviceanimal.updateEntity(id, s);
+            serviceanimalIslem.updateEntity(id, s);
 
             showAlert(Alert.AlertType.INFORMATION, "Service modifié avec succès !");
 

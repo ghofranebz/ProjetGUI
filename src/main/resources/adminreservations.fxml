@@ -29,7 +29,7 @@
 
                 <!-- 🔍 RECHERCHE DE SERVICE -->
                 <TextField fx:id="searchField"
-                           promptText="🔍 Rechercher un service..."
+                           promptText="🔍 Rechercher un serviceIslem..."
                            prefWidth="250"
                            styleClass="search-field"/>
 

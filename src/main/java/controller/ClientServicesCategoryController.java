@@ -17,8 +17,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import services.ContactPrestataireService;
-import services.ServiceReviewService;
-import services.Serviceanimal;
+import services.serviceReviewService;
+import services.serviceanimal;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,9 +36,9 @@ public class ClientServicesCategoryController {
     @FXML
     private VBox servicesContainer;
 
-    private final Serviceanimal serviceAnimal = new Serviceanimal();
+    private final serviceanimal serviceAnimal = new serviceanimal();
     private final ContactPrestataireService contactPrestataireService = new ContactPrestataireService();
-    private final ServiceReviewService serviceReviewService = new ServiceReviewService();
+    private final serviceReviewService serviceReviewServiceIslem = new serviceReviewService();
 
     @FXML
     public void initialize() {
@@ -94,9 +94,9 @@ public class ClientServicesCategoryController {
             Label title = new Label(s.getTitle() != null ? s.getTitle() : s.getType());
             title.getStyleClass().add("card-main-title");
 
-            int nbAvis = serviceReviewService.countReviewsForService(s.getId_services());
+            int nbAvis = serviceReviewServiceIslem.countReviewsForService(s.getId_services());
             if (nbAvis > 0) {
-                double moy = serviceReviewService.averageRatingForService(s.getId_services());
+                double moy = serviceReviewServiceIslem.averageRatingForService(s.getId_services());
                 Label avisMoyen = new Label(String.format(Locale.FRANCE,
                         "★ Note moyenne : %.1f/5 · %d avis", moy, nbAvis));
                 avisMoyen.getStyleClass().add("service-rating-summary");
@@ -170,7 +170,7 @@ public class ClientServicesCategoryController {
         return v != null ? v : "";
     }
 
-    private void showContactPrestataireDialog(ActionEvent event, Service service) {
+    private void showContactPrestataireDialog(ActionEvent event, Service serviceIslem) {
         Window owner = ((Node) event.getSource()).getScene().getWindow();
 
         if (AdminNavigation.currentClientId == null) {
@@ -179,7 +179,7 @@ public class ClientServicesCategoryController {
             return;
         }
 
-        if (service.getUser_id() <= 0) {
+        if (serviceIslem.getUser_id() <= 0) {
             showAlert(Alert.AlertType.WARNING, "Prestataire introuvable",
                     "Ce service n'a pas de prestataire associé.", owner);
             return;
@@ -190,9 +190,9 @@ public class ClientServicesCategoryController {
         popup.initModality(Modality.WINDOW_MODAL);
         popup.setTitle("Contacter le prestataire");
 
-        String serviceLabel = service.getTitle() != null && !service.getTitle().isBlank()
-                ? service.getTitle()
-                : nullSafe(service.getType());
+        String serviceLabel = serviceIslem.getTitle() != null && !serviceIslem.getTitle().isBlank()
+                ? serviceIslem.getTitle()
+                : nullSafe(serviceIslem.getType());
 
         Label head = new Label("Message au prestataire");
         head.getStyleClass().add("contact-popup-title");
@@ -227,8 +227,8 @@ public class ClientServicesCategoryController {
             try {
                 contactPrestataireService.sendMessage(
                         AdminNavigation.currentClientId,
-                        service.getUser_id(),
-                        service.getId_services(),
+                        serviceIslem.getUser_id(),
+                        serviceIslem.getId_services(),
                         bodyField.getText()
                 );
                 showAlert(Alert.AlertType.INFORMATION, "Message envoyé",

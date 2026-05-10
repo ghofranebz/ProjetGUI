@@ -28,7 +28,7 @@
                 <Region HBox.hgrow="ALWAYS"/>
 
                 <TextField fx:id="searchField"
-                           promptText="Rechercher par nom de service..."
+                           promptText="Rechercher par nom de serviceIslem..."
                            prefWidth="250"
                            styleClass="search-field"/>
 

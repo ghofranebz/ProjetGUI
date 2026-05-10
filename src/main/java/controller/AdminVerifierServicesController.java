@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import services.Serviceanimal;
+import services.serviceanimal;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +29,8 @@ public class AdminVerifierServicesController {
     @FXML
     private Label statPrestataires;
 
-    private final Serviceanimal serviceAnimal = new Serviceanimal();
-    private List<Service> tousLesServices;
+    private final serviceanimal serviceAnimal = new serviceanimal();
+    private List<Service> tousLesServiceIslems;
 
     @FXML
     public void initialize() {
@@ -50,7 +50,7 @@ public class AdminVerifierServicesController {
 
     private void chargerDonnees() {
         // Récupérer tous les services
-        tousLesServices = serviceAnimal.getAllEntities();
+        tousLesServiceIslems = serviceAnimal.getAllEntities();
 
         mettreAJourStatistiques();
 
@@ -59,19 +59,19 @@ public class AdminVerifierServicesController {
     }
 
     private void mettreAJourStatistiques() {
-        long enAttente = tousLesServices.stream()
+        long enAttente = tousLesServiceIslems.stream()
                 .filter(s -> s.getStatus() == null || "en_attente".equals(s.getStatus()))
                 .count();
 
-        long approuves = tousLesServices.stream()
+        long approuves = tousLesServiceIslems.stream()
                 .filter(s -> "approuve".equals(s.getStatus()))
                 .count();
 
-        long rejetes = tousLesServices.stream()
+        long rejetes = tousLesServiceIslems.stream()
                 .filter(s -> "rejete".equals(s.getStatus()))
                 .count();
 
-        long prestataires = tousLesServices.stream()
+        long prestataires = tousLesServiceIslems.stream()
                 .map(Service::getUser_id)
                 .distinct()
                 .count();
@@ -86,29 +86,29 @@ public class AdminVerifierServicesController {
         String statutSelectionne = filtreStatut.getValue();
 
         if (statutSelectionne == null || statutSelectionne.equals("Tous")) {
-            afficherServices(tousLesServices);
+            afficherServices(tousLesServiceIslems);
             return;
         }
 
         List<Service> filtrees;
         switch (statutSelectionne) {
             case "En attente":
-                filtrees = tousLesServices.stream()
+                filtrees = tousLesServiceIslems.stream()
                         .filter(s -> s.getStatus() == null || "en_attente".equals(s.getStatus()))
                         .collect(Collectors.toList());
                 break;
             case "Approuvés":
-                filtrees = tousLesServices.stream()
+                filtrees = tousLesServiceIslems.stream()
                         .filter(s -> "approuve".equals(s.getStatus()))
                         .collect(Collectors.toList());
                 break;
             case "Rejetés":
-                filtrees = tousLesServices.stream()
+                filtrees = tousLesServiceIslems.stream()
                         .filter(s -> "rejete".equals(s.getStatus()))
                         .collect(Collectors.toList());
                 break;
             default:
-                filtrees = tousLesServices;
+                filtrees = tousLesServiceIslems;
                 break;
         }
 
@@ -125,17 +125,17 @@ public class AdminVerifierServicesController {
         showAlert("Actualisation", "Les données ont été actualisées", Alert.AlertType.INFORMATION);
     }
 
-    private void afficherServices(List<Service> services) {
+    private void afficherServices(List<Service> serviceIslems) {
         servicesContainer.getChildren().clear();
 
-        if (services == null || services.isEmpty()) {
+        if (serviceIslems == null || serviceIslems.isEmpty()) {
             Label emptyLabel = new Label("📭 Aucun service trouvé");
             emptyLabel.getStyleClass().add("empty-label");
             servicesContainer.getChildren().add(emptyLabel);
             return;
         }
 
-        for (Service s : services) {
+        for (Service s : serviceIslems) {
             VBox card = new VBox();
             card.getStyleClass().add("service-card");
             card.setSpacing(15);

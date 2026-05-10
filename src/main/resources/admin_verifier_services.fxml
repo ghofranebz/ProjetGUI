@@ -24,7 +24,7 @@
         <VBox spacing="20" styleClass="content">
 
             <!-- Titre -->
-            <Label text="✅ Vérifier service" styleClass="page-title"/>
+            <Label text="✅ Vérifier serviceIslem" styleClass="page-title"/>
 
             <!-- Seulement le filtre (sans boutons Appliquer/Actualiser) -->
             <HBox spacing="15" styleClass="filter-bar">
@@ -54,7 +54,7 @@
                 </VBox>
             </HBox>
 
-            <!-- Liste des services à vérifier -->
+            <!-- Liste des serviceIslems à vérifier -->
             <ScrollPane fitToWidth="true"
                         hbarPolicy="NEVER"
                         vbarPolicy="AS_NEEDED"

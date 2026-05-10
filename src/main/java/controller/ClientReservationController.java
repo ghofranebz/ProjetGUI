@@ -1,9 +1,9 @@
 package controller;
 
+import entities.Service;
 import javafx.fxml.FXML;
 
 import entities.Reservation;
-import entities.Service;
 import entities.ServiceReview;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -18,9 +18,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import services.ServiceReservation;
-import services.ServiceReviewService;
-import services.Serviceanimal;
+import services.serviceReservation;
+import services.serviceReviewService;
+import services.serviceanimal;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,10 +35,10 @@ public class ClientReservationController {
     @FXML
     private TextField searchField;
 
-    private final ServiceReservation serviceReservation = new ServiceReservation();
-    private final Serviceanimal serviceAnimal = new Serviceanimal();
-    private final ServiceReviewService serviceReviewService = new ServiceReviewService();
-    private List<Reservation> toutesLesReservations;
+    private final serviceReservation serviceReservationIslem = new serviceReservation();
+    private final serviceanimal serviceAnimal = new serviceanimal();
+    private final serviceReviewService serviceReviewServiceIslem = new serviceReviewService();
+    private List<Reservation> toutesLesReservationIslems;
 
     @FXML
     public void initialize() {
@@ -55,8 +55,8 @@ public class ClientReservationController {
             return;
         }
 
-        toutesLesReservations = serviceReservation.getReservationsByUser(AdminNavigation.currentClientId);
-        afficherCartesReservations(toutesLesReservations);
+        toutesLesReservationIslems = serviceReservationIslem.getReservationsByUser(AdminNavigation.currentClientId);
+        afficherCartesReservations(toutesLesReservationIslems);
     }
 
     @FXML
@@ -68,7 +68,7 @@ public class ClientReservationController {
         String keyword = searchField.getText().trim();
 
         if (keyword.isEmpty()) {
-            afficherCartesReservations(toutesLesReservations);
+            afficherCartesReservations(toutesLesReservationIslems);
             return;
         }
 
@@ -80,7 +80,7 @@ public class ClientReservationController {
         }
 
         List<Reservation> resultats = new ArrayList<>();
-        for (Reservation r : toutesLesReservations) {
+        for (Reservation r : toutesLesReservationIslems) {
             if (serviceIds.contains(r.getId_service())) {
                 resultats.add(r);
             }
@@ -93,10 +93,10 @@ public class ClientReservationController {
         }
     }
 
-    private void afficherCartesReservations(List<Reservation> reservations) {
+    private void afficherCartesReservations(List<Reservation> reservationIslems) {
         reservationsContainer.getChildren().clear();
 
-        if (reservations == null || reservations.isEmpty()) {
+        if (reservationIslems == null || reservationIslems.isEmpty()) {
             Label emptyLabel = new Label("Aucune réservation");
             emptyLabel.getStyleClass().add("empty-label");
             reservationsContainer.getChildren().add(emptyLabel);
@@ -104,12 +104,12 @@ public class ClientReservationController {
         }
 
         List<Integer> bookingIds = new ArrayList<>();
-        for (Reservation r : reservations) {
+        for (Reservation r : reservationIslems) {
             bookingIds.add(r.getId_booking());
         }
-        Map<Integer, ServiceReview> reviewsByBooking = serviceReviewService.findByBookingIds(bookingIds);
+        Map<Integer, ServiceReview> reviewsByBooking = serviceReviewServiceIslem.findByBookingIds(bookingIds);
 
-        for (Reservation r : reservations) {
+        for (Reservation r : reservationIslems) {
             HBox card = new HBox();
             card.getStyleClass().add("data-card");
             card.setSpacing(25);
@@ -159,6 +159,14 @@ public class ClientReservationController {
             idLabel.getStyleClass().add("id-label");
             actionBox.getChildren().add(idLabel);
 
+            // ── Bouton 💳 Payer (réservations confirmées uniquement) ──
+            if ("confirmee".equalsIgnoreCase(trimOrEmpty(r.getStatus()))) {
+                Button payBtn = new Button("💳 Payer");
+                payBtn.getStyleClass().add("primary-button");
+                payBtn.setOnAction(ev -> ouvrirPaiement(r));
+                actionBox.getChildren().add(payBtn);
+            }
+
             ServiceReview existing = reviewsByBooking.get(r.getId_booking());
             if (existing != null) {
                 Label avisLbl = new Label(formatStars(existing.getRating()) + " · Votre avis");
@@ -192,6 +200,28 @@ public class ClientReservationController {
         }
     }
 
+    // ── Navigation vers l'interface de paiement ──────────────────────────────
+    private void ouvrirPaiement(Reservation r) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                    getClass().getResource("/payment.fxml")
+            );
+            javafx.scene.Parent root = loader.load();
+
+            Payment pc = loader.getController();
+            pc.setReservation(r);
+
+            AdminNavigation.applyWhiteBackground(root);
+
+            Stage stage = (Stage) reservationsContainer.getScene().getWindow();
+            stage.setScene(new Scene(root, 1200, 750));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private static Service minimalServicePlaceholder(Reservation r) {
         Service s = new Service();
         s.setId_services(r.getId_service());
@@ -207,23 +237,14 @@ public class ClientReservationController {
     }
 
     private static String formatStars(int n) {
-        if (n < 1) {
-            n = 1;
-        }
-        if (n > 5) {
-            n = 5;
-        }
+        if (n < 1) n = 1;
+        if (n > 5) n = 5;
         return "★".repeat(n) + "☆".repeat(5 - n);
     }
 
-    /** Une fois la date de fin atteinte (jour inclus ou passé), pour une réservation confirmée. */
     private boolean peutEvaluerReservation(Reservation r) {
-        if (r == null || r.getEnd_date() == null) {
-            return false;
-        }
-        if (!"confirmee".equalsIgnoreCase(trimOrEmpty(r.getStatus()))) {
-            return false;
-        }
+        if (r == null || r.getEnd_date() == null) return false;
+        if (!"confirmee".equalsIgnoreCase(trimOrEmpty(r.getStatus()))) return false;
         LocalDate end = r.getEnd_date().toLocalDate();
         LocalDate today = LocalDate.now();
         return !today.isBefore(end);
@@ -243,7 +264,7 @@ public class ClientReservationController {
         return s == null ? "" : s.trim();
     }
 
-    private void ouvrirDialogueAvis(Window owner, Reservation r, Service service) {
+    private void ouvrirDialogueAvis(Window owner, Reservation r, Service serviceIslem) {
         if (AdminNavigation.currentClientId == null
                 || AdminNavigation.currentClientId != r.getClient_id()) {
             alert(Alert.AlertType.ERROR, "Session invalide pour cette réservation.");
@@ -253,10 +274,10 @@ public class ClientReservationController {
         Stage dialog = new Stage();
         dialog.initOwner(owner);
         dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.setTitle("Votre avis — " + service.getTitle());
+        dialog.setTitle("Votre avis — " + serviceIslem.getTitle());
         dialog.setResizable(false);
 
-        Label intro = new Label("Comment s’est passée la prestation « " + service.getTitle() + " » ?");
+        Label intro = new Label("Comment s'est passée la prestation « " + serviceIslem.getTitle() + " » ?");
 
         ComboBox<Integer> noteBox = new ComboBox<>(FXCollections.observableArrayList(5, 4, 3, 2, 1));
         noteBox.setValue(5);
@@ -270,7 +291,7 @@ public class ClientReservationController {
         comment.setPrefRowCount(4);
         comment.setPrefWidth(380);
 
-        Button publier = new Button("Publier l’avis");
+        Button publier = new Button("Publier l'avis");
         publier.getStyleClass().add("primary-button");
         Button annuler = new Button("Annuler");
         annuler.getStyleClass().add("ghost-outline-button");
@@ -311,13 +332,13 @@ public class ClientReservationController {
                     v,
                     comment.getText()
             );
-            if (serviceReviewService.insertReview(rev)) {
+            if (serviceReviewServiceIslem.insertReview(rev)) {
                 dialog.close();
                 afficherReservations();
                 alert(Alert.AlertType.INFORMATION, "Merci — votre avis a été enregistré.");
             } else {
                 alert(Alert.AlertType.ERROR,
-                        "Impossible d’enregistrer (avis déjà existant ou problème base de données).");
+                        "Impossible d'enregistrer (avis déjà existant ou problème base de données).");
             }
         });
 
@@ -339,18 +360,10 @@ public class ClientReservationController {
     }
 
     private String libelleStatut(String status) {
-        if (status == null || "en_attente".equals(status)) {
-            return "En attente";
-        }
-        if ("confirmee".equals(status)) {
-            return "Confirmée";
-        }
-        if ("refusee".equals(status)) {
-            return "Refusée";
-        }
-        if ("annulee".equals(status)) {
-            return "Annulée";
-        }
+        if (status == null || "en_attente".equals(status)) return "En attente";
+        if ("confirmee".equals(status)) return "Confirmée";
+        if ("refusee".equals(status)) return "Refusée";
+        if ("annulee".equals(status)) return "Annulée";
         return status;
     }
 

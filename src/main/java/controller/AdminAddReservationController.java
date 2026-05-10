@@ -11,8 +11,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
-import services.ServiceReservation;
-import services.Serviceanimal;
+import services.serviceReservation;
+import services.serviceanimal;
 
 import java.sql.Date;
 import java.time.format.DateTimeFormatter;
@@ -26,7 +26,7 @@ public class AdminAddReservationController {
     private ComboBox<Service> serviceCombo;
 
     @FXML
-    private ComboBox<ServiceReservation.AnimalPick> animalCombo;
+    private ComboBox<serviceReservation.AnimalPick> animalCombo;
 
     @FXML
     private DatePicker startDatePicker;
@@ -40,8 +40,8 @@ public class AdminAddReservationController {
     @FXML
     private TextField statusField;
 
-    private final ServiceReservation serviceReservation = new ServiceReservation();
-    private final Serviceanimal serviceAnimal = new Serviceanimal();
+    private final serviceReservation serviceReservationIslem = new serviceReservation();
+    private final serviceanimal serviceAnimal = new serviceanimal();
 
     @FXML
     public void initialize() {
@@ -59,12 +59,12 @@ public class AdminAddReservationController {
 
         animalCombo.setConverter(new StringConverter<>() {
             @Override
-            public String toString(ServiceReservation.AnimalPick a) {
+            public String toString(serviceReservation.AnimalPick a) {
                 return a == null ? "" : a.label();
             }
 
             @Override
-            public ServiceReservation.AnimalPick fromString(String string) {
+            public serviceReservation.AnimalPick fromString(String string) {
                 return null;
             }
         });
@@ -74,7 +74,7 @@ public class AdminAddReservationController {
 
         Integer cid = AdminNavigation.currentClientId;
         if (cid != null) {
-            animalCombo.setItems(FXCollections.observableArrayList(serviceReservation.listAnimalsForClient(cid)));
+            animalCombo.setItems(FXCollections.observableArrayList(serviceReservationIslem.listAnimalsForClient(cid)));
         } else {
             animalCombo.setItems(FXCollections.observableArrayList());
         }
@@ -108,11 +108,11 @@ public class AdminAddReservationController {
 
     @FXML
     private void addReservation() {
-        Service selService = serviceCombo.getSelectionModel().getSelectedItem();
-        ServiceReservation.AnimalPick selAnimal = animalCombo.getSelectionModel().getSelectedItem();
+        Service selServiceIslem = serviceCombo.getSelectionModel().getSelectedItem();
+        serviceReservation.AnimalPick selAnimal = animalCombo.getSelectionModel().getSelectedItem();
 
-        if (selService == null) {
-            showAlert(Alert.AlertType.WARNING, "Veuillez choisir un service.");
+        if (selServiceIslem == null) {
+            showAlert(Alert.AlertType.WARNING, "Veuillez choisir un serviceIslem.");
             return;
         }
         if (selAnimal == null) {
@@ -134,11 +134,11 @@ public class AdminAddReservationController {
 
         Date startSql = Date.valueOf(startDatePicker.getValue());
         Date endSql = Date.valueOf(endDatePicker.getValue());
-        float estimatedTotal = serviceReservation.calculateTotalPrice(startSql, endSql, selService.getTarif());
+        float estimatedTotal = serviceReservationIslem.calculateTotalPrice(startSql, endSql, selServiceIslem.getTarif());
 
-        String serviceTitle = selService.getTitle() != null && !selService.getTitle().isBlank()
-                ? selService.getTitle()
-                : selService.getType();
+        String serviceTitle = selServiceIslem.getTitle() != null && !selServiceIslem.getTitle().isBlank()
+                ? selServiceIslem.getTitle()
+                : selServiceIslem.getType();
         String reason = reasonField.getText();
         String reasonBlock = (reason != null && !reason.isBlank())
                 ? "Commentaire / raison (si besoin) : " + reason.trim() + "\n\n"
@@ -161,9 +161,9 @@ public class AdminAddReservationController {
                 Souhaitez-vous confirmer cette réservation ?
                 """.formatted(
                 serviceTitle,
-                nullSafe(selService.getType()),
-                selService.getTarif(),
-                nullSafe(selService.getLocalisation()),
+                nullSafe(selServiceIslem.getType()),
+                selServiceIslem.getTarif(),
+                nullSafe(selServiceIslem.getLocalisation()),
                 selAnimal.label(),
                 reasonBlock,
                 startDatePicker.getValue().format(DATE_FR),
@@ -184,14 +184,14 @@ public class AdminAddReservationController {
         try {
             Reservation r = new Reservation();
             r.setClient_id(AdminNavigation.currentClientId);
-            r.setId_service(selService.getId_services());
+            r.setId_service(selServiceIslem.getId_services());
             r.setAnimal_id(selAnimal.id());
             r.setStart_date(startSql);
             r.setEnd_date(endSql);
             r.setCancelled_reason(reasonField.getText());
             r.setStatus("en_attente");
 
-            serviceReservation.addReservation(r);
+            serviceReservationIslem.addReservation(r);
 
             Alert ok = new Alert(Alert.AlertType.INFORMATION);
             ok.setTitle("Terminé");
@@ -220,7 +220,7 @@ public class AdminAddReservationController {
         serviceCombo.setItems(FXCollections.observableArrayList(approved));
         Integer cid = AdminNavigation.currentClientId;
         if (cid != null) {
-            animalCombo.setItems(FXCollections.observableArrayList(serviceReservation.listAnimalsForClient(cid)));
+            animalCombo.setItems(FXCollections.observableArrayList(serviceReservationIslem.listAnimalsForClient(cid)));
         }
         selectServiceFromNavigation(approved);
     }

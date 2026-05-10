@@ -11,8 +11,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
-import services.ServiceReservation;
-import services.Serviceanimal;
+import services.serviceReservation;
+import services.serviceanimal;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class AdminUpdateReservationController {
     private ComboBox<Service> serviceCombo;
 
     @FXML
-    private ComboBox<ServiceReservation.AnimalPick> animalCombo;
+    private ComboBox<serviceReservation.AnimalPick> animalCombo;
 
     @FXML
     private DatePicker startDatePicker;
@@ -41,8 +41,8 @@ public class AdminUpdateReservationController {
     @FXML
     private TextField statusField;
 
-    private final ServiceReservation serviceReservation = new ServiceReservation();
-    private final Serviceanimal serviceAnimal = new Serviceanimal();
+    private final serviceReservation serviceReservationIslem = new serviceReservation();
+    private final serviceanimal serviceAnimal = new serviceanimal();
 
     private int editingBookingId;
 
@@ -62,12 +62,12 @@ public class AdminUpdateReservationController {
 
         animalCombo.setConverter(new StringConverter<>() {
             @Override
-            public String toString(ServiceReservation.AnimalPick a) {
+            public String toString(serviceReservation.AnimalPick a) {
                 return a == null ? "" : a.label();
             }
 
             @Override
-            public ServiceReservation.AnimalPick fromString(String string) {
+            public serviceReservation.AnimalPick fromString(String string) {
                 return null;
             }
         });
@@ -100,7 +100,7 @@ public class AdminUpdateReservationController {
     }
 
     private void loadReservationIntoForm() {
-        Reservation r = serviceReservation.getReservationById(editingBookingId);
+        Reservation r = serviceReservationIslem.getReservationById(editingBookingId);
         if (r == null) {
             showAlert(Alert.AlertType.WARNING, "Réservation introuvable.");
             return;
@@ -116,11 +116,11 @@ public class AdminUpdateReservationController {
             serviceCombo.getSelectionModel().select(currentSvc);
         }
 
-        List<ServiceReservation.AnimalPick> animals =
-                new ArrayList<>(serviceReservation.listAnimalsForClient(r.getClient_id()));
+        List<serviceReservation.AnimalPick> animals =
+                new ArrayList<>(serviceReservationIslem.listAnimalsForClient(r.getClient_id()));
         boolean hasAnimal = animals.stream().anyMatch(a -> a.id() == r.getAnimal_id());
         if (!hasAnimal) {
-            animals.add(0, new ServiceReservation.AnimalPick(r.getAnimal_id(), "Animal associé à cette réservation"));
+            animals.add(0, new serviceReservation.AnimalPick(r.getAnimal_id(), "Animal associé à cette réservation"));
         }
         animalCombo.setItems(FXCollections.observableArrayList(animals));
         animals.stream().filter(a -> a.id() == r.getAnimal_id()).findFirst()
@@ -156,16 +156,16 @@ public class AdminUpdateReservationController {
             return;
         }
         try {
-            Reservation oldReservation = serviceReservation.getReservationById(editingBookingId);
-            if (oldReservation == null) {
+            Reservation oldReservationIslem = serviceReservationIslem.getReservationById(editingBookingId);
+            if (oldReservationIslem == null) {
                 showAlert(Alert.AlertType.ERROR, "Réservation introuvable.");
                 return;
             }
 
-            Service selService = serviceCombo.getSelectionModel().getSelectedItem();
-            ServiceReservation.AnimalPick selAnimal = animalCombo.getSelectionModel().getSelectedItem();
+            Service selServiceIslem = serviceCombo.getSelectionModel().getSelectedItem();
+            serviceReservation.AnimalPick selAnimal = animalCombo.getSelectionModel().getSelectedItem();
 
-            if (selService == null || selAnimal == null) {
+            if (selServiceIslem == null || selAnimal == null) {
                 showAlert(Alert.AlertType.WARNING, "Veuillez choisir un service et un animal.");
                 return;
             }
@@ -175,15 +175,15 @@ public class AdminUpdateReservationController {
             }
 
             Reservation r = new Reservation();
-            r.setClient_id(oldReservation.getClient_id());
-            r.setId_service(selService.getId_services());
+            r.setClient_id(oldReservationIslem.getClient_id());
+            r.setId_service(selServiceIslem.getId_services());
             r.setAnimal_id(selAnimal.id());
             r.setStart_date(Date.valueOf(startDatePicker.getValue()));
             r.setEnd_date(Date.valueOf(endDatePicker.getValue()));
             r.setCancelled_reason(reasonField.getText());
-            r.setStatus(oldReservation.getStatus() != null ? oldReservation.getStatus() : "en_attente");
+            r.setStatus(oldReservationIslem.getStatus() != null ? oldReservationIslem.getStatus() : "en_attente");
 
-            serviceReservation.updateEntity(editingBookingId, r);
+            serviceReservationIslem.updateEntity(editingBookingId, r);
 
             showAlert(Alert.AlertType.INFORMATION, "Réservation modifiée avec succès !");
 

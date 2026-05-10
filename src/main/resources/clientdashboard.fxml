@@ -23,11 +23,11 @@
     <center>
         <VBox spacing="24" styleClass="content client-content">
             <Label text="Espace Client" styleClass="client-page-title"/>
-            <Label text="Parcourez les services disponibles et réservez en quelques clics."
+            <Label text="Parcourez les serviceIslems disponibles et réservez en quelques clics."
                    styleClass="client-subtitle"/>
 
             <VBox spacing="18">
-                <Button text="📋  Catalogue des services"
+                <Button text="📋  Catalogue des serviceIslems"
                         onAction="#goServices"
                         styleClass="dashboard-card"/>
 

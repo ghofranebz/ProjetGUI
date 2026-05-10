@@ -27,7 +27,7 @@
         <VBox spacing="28" styleClass="content">
 
             <VBox spacing="10">
-                <Label text="Type de service" styleClass="page-title"/>
+                <Label text="Type de serviceIslem" styleClass="page-title"/>
                 <Label text="Choisissez une carte : le titre du formulaire sera rempli automatiquement. Vous pourrez tout modifier avant d’enregistrer."
                        styleClass="subtitle"
                        wrapText="true"/>
@@ -46,7 +46,7 @@
 
                 <HBox spacing="28" alignment="CENTER_LEFT" styleClass="category-cards-row">
 
-                    <VBox spacing="0" styleClass="service-category-card" minWidth="300" prefWidth="300" maxWidth="300">
+                    <VBox spacing="0" styleClass="serviceIslem-category-card" minWidth="300" prefWidth="300" maxWidth="300">
                         <ImageView fx:id="imgToilettage"
                                    fitWidth="278"
                                    fitHeight="156"
@@ -60,11 +60,11 @@
                             <Label text="Bain, coupe, brossage et soins pour un compagnon propre et soigné."
                                    wrapText="true"
                                    styleClass="category-card-desc"/>
-                            <Button text="Ajouter service" onAction="#pickToilettage" styleClass="category-card-cta"/>
+                            <Button text="Ajouter serviceIslem" onAction="#pickToilettage" styleClass="category-card-cta"/>
                         </VBox>
                     </VBox>
 
-                    <VBox spacing="0" styleClass="service-category-card" minWidth="280" prefWidth="280" maxWidth="280">
+                    <VBox spacing="0" styleClass="serviceIslem-category-card" minWidth="280" prefWidth="280" maxWidth="280">
                         <ImageView fx:id="imgGardes"
                                    fitWidth="260"
                                    fitHeight="140"
@@ -78,11 +78,11 @@
                             <Label text="Garde à domicile ou en pension : surveillance, repas et présence."
                                    wrapText="true"
                                    styleClass="category-card-desc"/>
-                            <Button text="Ajouter service" onAction="#pickGardes" styleClass="category-card-cta"/>
+                            <Button text="Ajouter serviceIslem" onAction="#pickGardes" styleClass="category-card-cta"/>
                         </VBox>
                     </VBox>
 
-                    <VBox spacing="0" styleClass="service-category-card" minWidth="300" prefWidth="300" maxWidth="300">
+                    <VBox spacing="0" styleClass="serviceIslem-category-card" minWidth="300" prefWidth="300" maxWidth="300">
                         <ImageView fx:id="imgDressage"
                                    fitWidth="278"
                                    fitHeight="156"
@@ -96,11 +96,11 @@
                             <Label text="Éducation et obéissance : apprentissage des ordres et socialisation."
                                    wrapText="true"
                                    styleClass="category-card-desc"/>
-                            <Button text="Ajouter service" onAction="#pickDressage" styleClass="category-card-cta"/>
+                            <Button text="Ajouter serviceIslem" onAction="#pickDressage" styleClass="category-card-cta"/>
                         </VBox>
                     </VBox>
 
-                    <VBox spacing="0" styleClass="service-category-card" minWidth="300" prefWidth="300" maxWidth="300">
+                    <VBox spacing="0" styleClass="serviceIslem-category-card" minWidth="300" prefWidth="300" maxWidth="300">
                         <ImageView fx:id="imgPremium"
                                    fitWidth="278"
                                    fitHeight="156"
@@ -114,7 +114,7 @@
                             <Label text="Offre haut de gamme : promenade, photo, spa et bien‑être."
                                    wrapText="true"
                                    styleClass="category-card-desc"/>
-                            <Button text="Ajouter service" onAction="#pickPremium" styleClass="category-card-cta"/>
+                            <Button text="Ajouter serviceIslem" onAction="#pickPremium" styleClass="category-card-cta"/>
                         </VBox>
                     </VBox>
 
@@ -139,7 +139,7 @@
                     <Label text="Sur PURRLY, votre sérieux se voit dans les détails : fiches complètes, tarifs transparents et lieu précis. Les familles vous font confiance quand tout est clair — avant même la première réservation."
                            wrapText="true"
                            styleClass="motivation-banner-body"/>
-                    <Label text="À chaque demande, un peu de bienveillance va très loin : réponses rapides, statuts à jour, et attention aux habitudes de l’animal. Un bon traitement du service, c’est aussi celui qu’on offre aux compagnons et à leurs humains."
+                    <Label text="À chaque demande, un peu de bienveillance va très loin : réponses rapides, statuts à jour, et attention aux habitudes de l’animal. Un bon traitement du serviceIslem, c’est aussi celui qu’on offre aux compagnons et à leurs humains."
                            wrapText="true"
                            styleClass="motivation-banner-body"/>
                 </VBox>

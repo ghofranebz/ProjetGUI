@@ -1,7 +1,7 @@
 package main;
 
 import entities.Service;
-import services.Serviceanimal;
+import services.serviceanimal;
 
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +10,7 @@ public class TestServiceUpdate {
 
     public static void main(String[] args) {
 
-        Serviceanimal serviceAnimal = new Serviceanimal();
+        serviceanimal serviceAnimal = new serviceanimal();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("=" .repeat(60));

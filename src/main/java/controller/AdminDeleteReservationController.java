@@ -8,8 +8,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.collections.FXCollections;
-import services.ServiceReservation;
-import services.Serviceanimal;
+import services.serviceReservation;
+import services.serviceanimal;
 
 import java.util.Optional;
 
@@ -18,8 +18,8 @@ public class AdminDeleteReservationController {
     @FXML
     private ComboBox<Reservation> reservationCombo;
 
-    private final ServiceReservation serviceReservation = new ServiceReservation();
-    private final Serviceanimal serviceAnimal = new Serviceanimal();
+    private final serviceReservation serviceReservationIslem = new serviceReservation();
+    private final serviceanimal serviceAnimal = new serviceanimal();
 
     @FXML
     public void initialize() {
@@ -50,7 +50,7 @@ public class AdminDeleteReservationController {
     }
 
     private void refreshReservationChoices() {
-        reservationCombo.setItems(FXCollections.observableArrayList(serviceReservation.getAllReservations()));
+        reservationCombo.setItems(FXCollections.observableArrayList(serviceReservationIslem.getAllReservations()));
         reservationCombo.getSelectionModel().clearSelection();
     }
 
@@ -74,7 +74,7 @@ public class AdminDeleteReservationController {
         Optional<ButtonType> result = confirm.showAndWait();
 
         if (result.isPresent() && result.get() == okButton) {
-            serviceReservation.deleteEntity(selected.getId_booking());
+            serviceReservationIslem.deleteEntity(selected.getId_booking());
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Réservation supprimée.");
             refreshReservationChoices();
         }

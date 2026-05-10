@@ -7,14 +7,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceReservation implements ICrud<Reservation> {
+public class serviceReservation implements ICrud<Reservation> {
 
-    /** Sélection d’animal en liste sans exposer l’identifiant dans l’UI. */
+    /** Sélection d'animal en liste sans exposer l'identifiant dans l'UI. */
     public record AnimalPick(int id, String label) {}
 
     Connection connection;
 
-    public ServiceReservation() {
+    public serviceReservation() {
         connection = Mydb.getInstance().getConnection();
     }
 
@@ -30,7 +30,6 @@ public class ServiceReservation implements ICrud<Reservation> {
 
     @Override
     public void addReservation(Reservation r) {
-        // 🔥 AJOUT DE status DANS LA REQUÊTE
         String req = "INSERT INTO bookings (client_id, id_service, animal_id, start_date, end_date, total_price, cancelled_reason, status) VALUES (?,?,?,?,?,?,?,?)";
 
         try (PreparedStatement pst = connection.prepareStatement(req)) {
@@ -46,7 +45,6 @@ public class ServiceReservation implements ICrud<Reservation> {
             pst.setFloat(6, totalPrice);
             pst.setString(7, r.getCancelled_reason());
 
-            // 🔥 STATUS PAR DÉFAUT "en_attente"
             String status = r.getStatus();
             pst.setString(8, (status != null && !status.isEmpty()) ? status : "en_attente");
 
@@ -70,10 +68,8 @@ public class ServiceReservation implements ICrud<Reservation> {
         }
     }
 
-    // ================= 🔥 RÉSERVATIONS PAR PRESTATAIRE =================
-
     public List<Reservation> getReservationsByPrestataire(int prestataireId) {
-        List<Reservation> reservations = new ArrayList<>();
+        List<Reservation> reservationIslems = new ArrayList<>();
 
         String sql = "SELECT b.* FROM bookings b " +
                 "INNER JOIN services s ON b.id_service = s.id_service " +
@@ -95,19 +91,16 @@ public class ServiceReservation implements ICrud<Reservation> {
                 r.setTotal_price(rs.getFloat("total_price"));
                 r.setCancelled_reason(rs.getString("cancelled_reason"));
 
-                // 🔥 LECTURE DU STATUS
                 String status = rs.getString("status");
                 r.setStatus(status != null ? status : "en_attente");
 
-                reservations.add(r);
+                reservationIslems.add(r);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return reservations;
+        return reservationIslems;
     }
-
-    // ================= 🔥 CONFIRMER / REFUSER =================
 
     public void confirmerReservation(int idReservation) {
         String sql = "UPDATE bookings SET status = 'confirmee' WHERE id_booking = ?";
@@ -131,11 +124,8 @@ public class ServiceReservation implements ICrud<Reservation> {
         }
     }
 
-    // ================= UPDATE =================
-
     @Override
     public void updateEntity(int id, Reservation r) {
-        // 🔥 AJOUT DE status DANS L'UPDATE
         String req = "UPDATE bookings SET client_id=?, id_service=?, animal_id=?, start_date=?, end_date=?, total_price=?, cancelled_reason=?, status=? WHERE id_booking=?";
 
         try (PreparedStatement pst = connection.prepareStatement(req)) {
@@ -161,8 +151,6 @@ public class ServiceReservation implements ICrud<Reservation> {
         }
     }
 
-    // ================= GET ALL =================
-
     @Override
     public List<Reservation> getAllEntities() {
         return getAllReservations();
@@ -170,7 +158,7 @@ public class ServiceReservation implements ICrud<Reservation> {
 
     @Override
     public List<Reservation> getAllReservations() {
-        List<Reservation> reservations = new ArrayList<>();
+        List<Reservation> reservationIslems = new ArrayList<>();
         String sql = "SELECT * FROM bookings";
 
         try (PreparedStatement pst = connection.prepareStatement(sql);
@@ -187,19 +175,16 @@ public class ServiceReservation implements ICrud<Reservation> {
                 r.setTotal_price(rs.getFloat("total_price"));
                 r.setCancelled_reason(rs.getString("cancelled_reason"));
 
-                // 🔥 LECTURE DU STATUS
                 String status = rs.getString("status");
                 r.setStatus(status != null ? status : "en_attente");
 
-                reservations.add(r);
+                reservationIslems.add(r);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return reservations;
+        return reservationIslems;
     }
-
-    // ================= GET BY ID =================
 
     @Override
     public Reservation getEntityById(int id) {
@@ -226,7 +211,6 @@ public class ServiceReservation implements ICrud<Reservation> {
                 r.setTotal_price(rs.getFloat("total_price"));
                 r.setCancelled_reason(rs.getString("cancelled_reason"));
 
-                // 🔥 LECTURE DU STATUS
                 String status = rs.getString("status");
                 r.setStatus(status != null ? status : "en_attente");
             }
@@ -237,27 +221,23 @@ public class ServiceReservation implements ICrud<Reservation> {
     }
 
     /**
-     * Animaux du client pour ComboBox (libellé sans afficher l’ID).
-     * Essaie {@code animal.animal_id} puis {@code animal.id_animal} selon le schéma MySQL.
+     * Animaux du client pour ComboBox.
+     * Utilise owner_id et name (noms réels des colonnes dans la table animals).
      */
     public List<AnimalPick> listAnimalsForClient(int clientId) {
-        List<AnimalPick> list = loadAnimals(clientId, "SELECT animal_id, nom FROM animal WHERE client_id = ? ORDER BY nom", true);
-        if (!list.isEmpty()) {
-            return list;
-        }
-        return loadAnimals(clientId, "SELECT id_animal, nom FROM animal WHERE client_id = ? ORDER BY nom", false);
+        return loadAnimals(clientId,
+                "SELECT id, name FROM animals WHERE owner_id = ? ORDER BY name");
     }
 
-    private List<AnimalPick> loadAnimals(int clientId, String sql, boolean idColumnIsAnimalId) {
+    private List<AnimalPick> loadAnimals(int clientId, String sql) {
         List<AnimalPick> list = new ArrayList<>();
-        String idCol = idColumnIsAnimalId ? "animal_id" : "id_animal";
         try (PreparedStatement pst = connection.prepareStatement(sql)) {
             pst.setInt(1, clientId);
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
-                    int id = rs.getInt(idCol);
-                    String nom = rs.getString("nom");
-                    String label = (nom != null && !nom.isBlank()) ? nom.trim() : "Animal";
+                    int id = rs.getInt("id");
+                    String name = rs.getString("name");
+                    String label = (name != null && !name.isBlank()) ? name.trim() : "Animal";
                     list.add(new AnimalPick(id, label));
                 }
             }
@@ -266,8 +246,6 @@ public class ServiceReservation implements ICrud<Reservation> {
         }
         return list;
     }
-
-    // ================= MÉTHODES MÉTIER =================
 
     private float getServiceTarif(int serviceId) {
         String sql = "SELECT tarif FROM services WHERE id_service = ?";
@@ -291,7 +269,7 @@ public class ServiceReservation implements ICrud<Reservation> {
 
     @Override
     public List<Reservation> getReservationsByUser(int clientId) {
-        List<Reservation> reservations = new ArrayList<>();
+        List<Reservation> reservationIslems = new ArrayList<>();
         String req = "SELECT * FROM bookings WHERE client_id = ?";
 
         try (PreparedStatement pst = connection.prepareStatement(req)) {
@@ -309,21 +287,19 @@ public class ServiceReservation implements ICrud<Reservation> {
                 r.setTotal_price(rs.getFloat("total_price"));
                 r.setCancelled_reason(rs.getString("cancelled_reason"));
 
-                // 🔥 LECTURE DU STATUS
                 String status = rs.getString("status");
                 r.setStatus(status != null ? status : "en_attente");
 
-                reservations.add(r);
+                reservationIslems.add(r);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return reservations;
+        return reservationIslems;
     }
 
     @Override
     public void annulerReservation(int id, String raison) {
-        // 🔥 AJOUT DE status = 'annulee'
         String req = "UPDATE bookings SET cancelled_reason = ?, status = 'annulee' WHERE id_booking = ?";
 
         try (PreparedStatement pst = connection.prepareStatement(req)) {

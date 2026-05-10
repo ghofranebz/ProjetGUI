@@ -12,12 +12,12 @@ import java.util.Map;
 /**
  * Avis utilisateur sur une réservation / service après la prestation.
  */
-public class ServiceReviewService {
+public class serviceReviewService {
 
     private final Connection connection;
     private static volatile boolean tableEnsured;
 
-    public ServiceReviewService() {
+    public serviceReviewService() {
         this.connection = Mydb.getInstance().getConnection();
         ensureTable();
     }

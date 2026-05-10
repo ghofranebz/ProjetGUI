@@ -50,7 +50,7 @@
     <bottom>
         <HBox spacing="14" alignment="CENTER_RIGHT" styleClass="bottom-action-bar">
             <Region HBox.hgrow="ALWAYS"/>
-            <Button text="Retour services" onAction="#goServices" styleClass="dark-button"/>
+            <Button text="Retour serviceIslems" onAction="#goServices" styleClass="dark-button"/>
             <Button text="Modifier" onAction="#updateService" styleClass="primary-button"/>
         </HBox>
     </bottom>

@@ -27,7 +27,7 @@
 
                     <VBox styleClass="form-intro header-container">
                         <Label text="Supprimer une réservation" styleClass="page-title"/>
-                        <Label text="Sélectionnez la réservation à supprimer (dates et service affichés). L’action est irréversible."
+                        <Label text="Sélectionnez la réservation à supprimer (dates et serviceIslem affichés). L’action est irréversible."
                                styleClass="subtitle"
                                wrapText="true"/>
                     </VBox>
