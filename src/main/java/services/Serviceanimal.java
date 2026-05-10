@@ -18,31 +18,6 @@ public class Serviceanimal implements ICrud<Service> {
     // ================= ADD =================
 
     @Override
-    public void add(Service entity) throws SQLException {
-
-    }
-
-    @Override
-    public List<Service> getAll() throws SQLException {
-        return List.of();
-    }
-
-    @Override
-    public Service getById(int id) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public void update(Service entity) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(int id) throws SQLException {
-
-    }
-
-    @Override
     public void addEntity(Service service) {
         addEntity2(service);
     }
@@ -50,7 +25,7 @@ public class Serviceanimal implements ICrud<Service> {
     @Override
     public void addEntity2(Service service) {
 
-        String req = "INSERT INTO services(title, type, description, tarif, localisation, user_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO services(title, type, description, tarif, localisation, user_id, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement pst = connection.prepareStatement(req);
@@ -63,40 +38,72 @@ public class Serviceanimal implements ICrud<Service> {
             pst.setInt(6, service.getUser_id());
             pst.setTimestamp(7, Timestamp.valueOf(service.getCreatedAt()));
 
-            pst.executeUpdate();
+            // 🔥 Sécurité : si status est null, mettre "en_attente"
+            String status = service.getStatus();
+            pst.setString(8, (status != null && !status.isEmpty()) ? status : "en_attente");
 
-            System.out.println("Service ajouté !"); // ✅ seulement si succès
+            pst.executeUpdate();
+            System.out.println("Service ajouté !");
 
         } catch (SQLException e) {
             System.out.println("Erreur ajout service: " + e.getMessage());
         }
     }
 
-    // ================= DELETE =================
+    public List<Service> rechercherServices(String keyword) {
+        List<Service> resultats = new ArrayList<>();
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getAllEntities();
+        }
+
+        String sql = "SELECT * FROM services WHERE LOWER(title) LIKE LOWER(?)";
+
+        try (PreparedStatement pst = connection.prepareStatement(sql)) {
+            String searchPattern = "%" + keyword.trim() + "%";
+            pst.setString(1, searchPattern);
+
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Service s = new Service();
+                s.setId_services(rs.getInt("id_service"));
+                s.setTitle(rs.getString("title"));
+                s.setType(rs.getString("type"));
+                s.setDescription(rs.getString("description"));
+                s.setTarif(rs.getFloat("tarif"));
+                s.setLocalisation(rs.getString("localisation"));
+                s.setUser_id(rs.getInt("user_id"));
+                s.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+                String status = rs.getString("status");
+                s.setStatus(status != null ? status : "en_attente");
+                resultats.add(s);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la recherche: " + e.getMessage());
+        }
+
+        return resultats;
+    }
 
     @Override
     public void deleteEntity(int id) {
-
         String req = "DELETE FROM services WHERE id_service = ?";
-
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setInt(1, id);
-
             pst.executeUpdate();
             System.out.println("Service supprimé !");
-
         } catch (SQLException e) {
             System.out.println("Erreur delete: " + e.getMessage());
         }
     }
 
-    // ================= UPDATE =================
-
+    // 🔥 CORRECTION : updateEntity avec status
     @Override
     public void updateEntity(int id, Service service) {
-
-        String req = "UPDATE services SET title=?, type=?, description=?, tarif=?, localisation=?, user_id=?, created_at=? WHERE id_service=?";
+        String req = "UPDATE services SET title=?, type=?, description=?, tarif=?, localisation=?, user_id=?, created_at=?, status=? WHERE id_service=?";
 
         try {
             PreparedStatement pst = connection.prepareStatement(req);
@@ -108,7 +115,8 @@ public class Serviceanimal implements ICrud<Service> {
             pst.setString(5, service.getLocalisation());
             pst.setInt(6, service.getUser_id());
             pst.setTimestamp(7, Timestamp.valueOf(service.getCreatedAt()));
-            pst.setInt(8, id);
+            pst.setString(8, service.getStatus() != null ? service.getStatus() : "en_attente");
+            pst.setInt(9, id);
 
             pst.executeUpdate();
             System.out.println("Service mis à jour !");
@@ -118,13 +126,9 @@ public class Serviceanimal implements ICrud<Service> {
         }
     }
 
-    // ================= GET ALL =================
-
     @Override
     public List<Service> getAllEntities() {
-
         List<Service> list = new ArrayList<>();
-
         String req = "SELECT * FROM services";
 
         try {
@@ -132,9 +136,7 @@ public class Serviceanimal implements ICrud<Service> {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-
                 Service s = new Service();
-
                 s.setId_services(rs.getInt("id_service"));
                 s.setTitle(rs.getString("title"));
                 s.setType(rs.getString("type"));
@@ -143,36 +145,57 @@ public class Serviceanimal implements ICrud<Service> {
                 s.setLocalisation(rs.getString("localisation"));
                 s.setUser_id(rs.getInt("user_id"));
                 s.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
-
+                String status = rs.getString("status");
+                s.setStatus(status != null ? status : "en_attente");
                 list.add(s);
             }
-
         } catch (SQLException e) {
             System.out.println("Erreur getAll: " + e.getMessage());
         }
-
         return list;
     }
 
-    // ================= GET BY ID =================
+    /** Services visibles côté client (catalogue). */
+    public List<Service> getServicesApprouves() {
+        List<Service> list = new ArrayList<>();
+        String req = "SELECT * FROM services WHERE LOWER(COALESCE(status, '')) = 'approuve'";
+
+        try {
+            PreparedStatement pst = connection.prepareStatement(req);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Service s = new Service();
+                s.setId_services(rs.getInt("id_service"));
+                s.setTitle(rs.getString("title"));
+                s.setType(rs.getString("type"));
+                s.setDescription(rs.getString("description"));
+                s.setTarif(rs.getFloat("tarif"));
+                s.setLocalisation(rs.getString("localisation"));
+                s.setUser_id(rs.getInt("user_id"));
+                s.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+                String status = rs.getString("status");
+                s.setStatus(status != null ? status : "en_attente");
+                list.add(s);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur getServicesApprouves: " + e.getMessage());
+        }
+        return list;
+    }
 
     @Override
     public Service getEntityById(int id) {
-
         Service s = null;
-
         String req = "SELECT * FROM services WHERE id_service = ?";
 
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setInt(1, id);
-
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-
                 s = new Service();
-
                 s.setId_services(rs.getInt("id_service"));
                 s.setTitle(rs.getString("title"));
                 s.setType(rs.getString("type"));
@@ -181,20 +204,86 @@ public class Serviceanimal implements ICrud<Service> {
                 s.setLocalisation(rs.getString("localisation"));
                 s.setUser_id(rs.getInt("user_id"));
                 s.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+                String status = rs.getString("status");
+                s.setStatus(status != null ? status : "en_attente");
             }
-
         } catch (SQLException e) {
             System.out.println("Erreur getById: " + e.getMessage());
         }
-
         return s;
     }
 
-    // ================= NOT USED =================
+    public void approuverService(int serviceId) {
+        String sql = "UPDATE services SET status = 'approuve' WHERE id_service = ?";
+        try (PreparedStatement pst = connection.prepareStatement(sql)) {
+            pst.setInt(1, serviceId);
+            pst.executeUpdate();
+            System.out.println("Service approuvé !");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-    @Override public void addReservation(Service service) {}
-    @Override public void annulerReservation(int id, String raison) {}
-    @Override public List<Service> getAllReservations() { return List.of(); }
-    @Override public Service getReservationById(int id) { return null; }
-    @Override public List<Service> getReservationsByUser(int userId) { return List.of(); }
+    public void rejeterService(int serviceId) {
+        String sql = "UPDATE services SET status = 'rejete' WHERE id_service = ?";
+        try (PreparedStatement pst = connection.prepareStatement(sql)) {
+            pst.setInt(1, serviceId);
+            pst.executeUpdate();
+            System.out.println("Service rejeté !");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 🔥 CORRECTION : getReservationsByUser - retourne les services du prestataire
+    @Override
+    public List<Service> getReservationsByUser(int userId) {
+        List<Service> list = new ArrayList<>();
+        String req = "SELECT * FROM services WHERE user_id = ?";
+
+        try {
+            PreparedStatement pst = connection.prepareStatement(req);
+            pst.setInt(1, userId);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Service s = new Service();
+                s.setId_services(rs.getInt("id_service"));
+                s.setTitle(rs.getString("title"));
+                s.setType(rs.getString("type"));
+                s.setDescription(rs.getString("description"));
+                s.setTarif(rs.getFloat("tarif"));
+                s.setLocalisation(rs.getString("localisation"));
+                s.setUser_id(rs.getInt("user_id"));
+                s.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+                String status = rs.getString("status");
+                s.setStatus(status != null ? status : "en_attente");
+                list.add(s);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur getReservationsByUser: " + e.getMessage());
+        }
+        return list;
+    }
+
+    @Override
+    public void addReservation(Service service) {}
+
+    @Override
+    public void annulerReservation(int id, String raison) {}
+
+    @Override
+    public List<Service> getAllReservations() {
+        return List.of();
+    }
+
+    @Override
+    public Service getReservationById(int id) {
+        return null;
+    }
+
+    @Override
+    public float calculateTotalPrice(Date startDate, Date endDate, float pricePerDay) {
+        return 0;
+    }
 }

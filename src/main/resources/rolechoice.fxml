@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.RoleChoiceController"
+            prefWidth="1200"
+            prefHeight="750"
+            stylesheets="@style.css"
+            styleClass="root">
+
+    <center>
+        <VBox spacing="28" alignment="CENTER" styleClass="content">
+            <Label text="🐾 PURRLY" styleClass="logo-marketing"/>
+            <Label text="Qui utilise l’application ?" styleClass="page-title"/>
+
+            <HBox spacing="24" alignment="CENTER">
+                <Button text="Prestataire"
+                        onAction="#choosePrestataire"
+                        prefWidth="220"
+                        prefHeight="52"
+                        styleClass="dashboard-card"/>
+                <Button text="Client"
+                        onAction="#chooseClient"
+                        prefWidth="220"
+                        prefHeight="52"
+                        styleClass="dashboard-card"/>
+            </HBox>
+        </VBox>
+    </center>
+
+</BorderPane>

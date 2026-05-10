@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Rectangle?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.ClientServiceController"
+            prefWidth="1200"
+            prefHeight="750"
+            stylesheets="@style.css"
+            styleClass="root client-app-root">
+
+    <left>
+        <VBox spacing="25" styleClass="client-sidebar">
+            <Label text="🐾 PURRLY" styleClass="client-logo"/>
+            <Separator orientation="HORIZONTAL" styleClass="sidebar-divider" maxWidth="Infinity"/>
+            <Button text="Accueil" onAction="#goDashboard" styleClass="client-menu-button"/>
+            <Button text="Services" onAction="#goServices" styleClass="client-menu-button-active"/>
+            <Button text="Mes réservations" onAction="#goReservations" styleClass="client-menu-button"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="18" styleClass="content client-content">
+
+            <HBox spacing="15" styleClass="top-line">
+                <VBox spacing="6">
+                    <Label text="Nos services" styleClass="client-page-title"/>
+                    <Label text="Explorez une catégorie pour voir les prestataires disponibles, puis réservez en quelques clics."
+                           wrapText="true"
+                           styleClass="client-subtitle"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <ScrollPane fitToWidth="true"
+                        hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED"
+                        styleClass="scroll-pane">
+
+                <VBox spacing="22" styleClass="client-hub-stack">
+
+                    <!-- Garde -->
+                    <HBox styleClass="service-hub-card" alignment="CENTER_LEFT" spacing="0">
+                        <StackPane styleClass="service-hub-photo-frame">
+                            <ImageView fitWidth="340" fitHeight="220" preserveRatio="true" smooth="true">
+                                <clip>
+                                    <Rectangle width="340" height="220" arcWidth="26" arcHeight="26"/>
+                                </clip>
+                                <image>
+                                    <Image url="@images/hub_garde.jpg"/>
+                                </image>
+                            </ImageView>
+                        </StackPane>
+                        <VBox spacing="10" styleClass="service-hub-body" HBox.hgrow="ALWAYS">
+                            <Label text="🏠 Garde &amp; présence" styleClass="service-hub-main-title"/>
+                            <Label text="Chez le prestataire ou à votre domicile · Chiens &amp; chats"
+                                   wrapText="true"
+                                   styleClass="service-hub-subtitle"/>
+                            <Label text="Confiez votre compagnon à un prestataire pendant votre absence. Vous gardez le contrôle : besoins alimentaires, habitudes et sécurité sont au centre de la prise en charge."
+                                   wrapText="true"
+                                   styleClass="service-hub-desc"/>
+                            <VBox spacing="4" styleClass="service-hub-bullets">
+                                <Label text="• Surveillance et présence rassurante" styleClass="hub-bullet-point"/>
+                                <Label text="• Alimentation selon vos consignes" styleClass="hub-bullet-point"/>
+                                <Label text="• Soins de base (eau, confort, sorties)" styleClass="hub-bullet-point"/>
+                                <Label text="• Sécurité du foyer et du compagnon" styleClass="hub-bullet-point"/>
+                            </VBox>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <Button text="Explorer les services de garde" onAction="#exploreGarde"
+                                    styleClass="hub-explore-btn"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Toilettage -->
+                    <HBox styleClass="service-hub-card" alignment="CENTER_LEFT" spacing="0">
+                        <StackPane styleClass="service-hub-photo-frame">
+                            <ImageView fitWidth="340" fitHeight="220" preserveRatio="true" smooth="true">
+                                <clip>
+                                    <Rectangle width="340" height="220" arcWidth="26" arcHeight="26"/>
+                                </clip>
+                                <image>
+                                    <Image url="@images/hub_toilettage.png"/>
+                                </image>
+                            </ImageView>
+                        </StackPane>
+                        <VBox spacing="10" styleClass="service-hub-body" HBox.hgrow="ALWAYS">
+                            <Label text="🛁 Toilettage &amp; soins esthétiques" styleClass="service-hub-main-title"/>
+                            <Label text="En salon ou à domicile · Chiens &amp; chats"
+                                   wrapText="true"
+                                   styleClass="service-hub-subtitle"/>
+                            <Label text="Un toiletteur qualifié prend soin du pelage, de la peau et du confort de votre animal pour un résultat propre et doux."
+                                   wrapText="true"
+                                   styleClass="service-hub-desc"/>
+                            <VBox spacing="4" styleClass="service-hub-bullets">
+                                <Label text="• Bain, séchage et brushing adaptés" styleClass="hub-bullet-point"/>
+                                <Label text="• Coupe / démêlage selon race et état du pelage" styleClass="hub-bullet-point"/>
+                                <Label text="• Bilan visuel peau &amp; oreilles (basic)" styleClass="hub-bullet-point"/>
+                                <Label text="• Expérience calme pour limiter le stress" styleClass="hub-bullet-point"/>
+                            </VBox>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <Button text="Explorer les services de toilettage" onAction="#exploreToilettage"
+                                    styleClass="hub-explore-btn"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Dressage -->
+                    <HBox styleClass="service-hub-card" alignment="CENTER_LEFT" spacing="0">
+                        <StackPane styleClass="service-hub-photo-frame">
+                            <ImageView fitWidth="340" fitHeight="220" preserveRatio="true" smooth="true">
+                                <clip>
+                                    <Rectangle width="340" height="220" arcWidth="26" arcHeight="26"/>
+                                </clip>
+                                <image>
+                                    <Image url="@images/hub_dressage.png"/>
+                                </image>
+                            </ImageView>
+                        </StackPane>
+                        <VBox spacing="10" styleClass="service-hub-body" HBox.hgrow="ALWAYS">
+                            <Label text="🎓 Éducation &amp; comportement" styleClass="service-hub-main-title"/>
+                            <Label text="Séances structurées · Chiens"
+                                   wrapText="true"
+                                   styleClass="service-hub-subtitle"/>
+                            <Label text="Travaillez sur la coopération au quotidien : ordres utiles, socialisation et gestion des situations délicates avec méthode et bienveillance."
+                                   wrapText="true"
+                                   styleClass="service-hub-desc"/>
+                            <VBox spacing="4" styleClass="service-hub-bullets">
+                                <Label text="• Objectifs personnalisés (marche, rappel, calme…)" styleClass="hub-bullet-point"/>
+                                <Label text="• Plans progressifs et exercices concrets" styleClass="hub-bullet-point"/>
+                                <Label text="• Accompagnement propriétaire inclus" styleClass="hub-bullet-point"/>
+                                <Label text="• Séances adaptées au niveau de votre chien" styleClass="hub-bullet-point"/>
+                            </VBox>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <Button text="Explorer les services de dressage" onAction="#exploreDressage"
+                                    styleClass="hub-explore-btn"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Premium -->
+                    <HBox styleClass="service-hub-card" alignment="CENTER_LEFT" spacing="0">
+                        <StackPane styleClass="service-hub-photo-frame">
+                            <ImageView fitWidth="340" fitHeight="220" preserveRatio="true" smooth="true">
+                                <clip>
+                                    <Rectangle width="340" height="220" arcWidth="26" arcHeight="26"/>
+                                </clip>
+                                <image>
+                                    <Image url="@images/hub_premium.png"/>
+                                </image>
+                            </ImageView>
+                        </StackPane>
+                        <VBox spacing="10" styleClass="service-hub-body" HBox.hgrow="ALWAYS">
+                            <Label text="✨ Expérience haut de gamme" styleClass="service-hub-main-title"/>
+                            <Label text="Moments soins &amp; bien-être · Sur mesure"
+                                   wrapText="true"
+                                   styleClass="service-hub-subtitle"/>
+                            <Label text="Une formule plus complète pour choyer votre compagnon : temps dédié, attentions particulières et petites attentions « spa » selon l’offre du prestataire."
+                                   wrapText="true"
+                                   styleClass="service-hub-desc"/>
+                            <VBox spacing="4" styleClass="service-hub-bullets">
+                                <Label text="• Accompagnement renforcé et suivi attentif" styleClass="hub-bullet-point"/>
+                                <Label text="• Options bien-être (promenade longue, détente…)" styleClass="hub-bullet-point"/>
+                                <Label text="• Organisation fluide pour limiter l’attente" styleClass="hub-bullet-point"/>
+                                <Label text="• Idéal pour occasions ou besoins spécifiques" styleClass="hub-bullet-point"/>
+                            </VBox>
+                            <Region VBox.vgrow="ALWAYS"/>
+                            <Button text="Explorer les services premium" onAction="#explorePremium"
+                                    styleClass="hub-explore-btn"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Conseils & motivation : plat sur le fond (sans carte) -->
+                    <HBox styleClass="motivation-strip-flat" alignment="CENTER_LEFT" spacing="32">
+                        <StackPane styleClass="motivation-flat-graphic-wrap">
+                            <ImageView fitWidth="280" fitHeight="220" preserveRatio="true" smooth="true"
+                                       styleClass="motivation-flat-image">
+                                <clip>
+                                    <Rectangle width="280" height="220" arcWidth="18" arcHeight="18"/>
+                                </clip>
+                                <image>
+                                    <Image url="@images/motivation_tip.png"/>
+                                </image>
+                            </ImageView>
+                        </StackPane>
+                        <VBox spacing="14" alignment="TOP_LEFT" HBox.hgrow="ALWAYS">
+                            <Label text="Pas à pas, avec sérénité." styleClass="motivation-banner-title"/>
+                            <Label text="Sur PURRLY, chaque service commence par la confiance : décrivez les habitudes de votre animal, ses besoins et ce qui le met en confiance. Les prestataires répondent mieux quand tout est clair dès le départ."
+                                   wrapText="true"
+                                   styleClass="motivation-banner-body"/>
+                            <Label text="Petit conseil : avant de réserver, vérifiez localisation et créneaux, et n’hésitez pas à envoyer un message au prestataire pour poser vos questions. Une réservation bien préparée, c’est du temps gagné pour vous… et plus de confort pour votre compagnon."
+                                   wrapText="true"
+                                   styleClass="motivation-banner-body"/>
+                        </VBox>
+                    </HBox>
+
+                </VBox>
+            </ScrollPane>
+
+        </VBox>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.AdminDeleteServiceController"
+            prefWidth="1200"
+            prefHeight="750"
+            stylesheets="@style.css"
+            styleClass="root">
+
+    <left>
+        <VBox spacing="25" styleClass="sidebar">
+            <Label text="🐾 PURRLY" styleClass="logo"/>
+            <Separator orientation="HORIZONTAL" styleClass="sidebar-divider" maxWidth="Infinity"/>
+            <Button text="Accueil" onAction="#goDashboard" styleClass="menu-button"/>
+            <Button text="Services" onAction="#goServices" styleClass="menu-button-active"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="22" styleClass="form-container">
+
+            <Label text="Supprimer un Service" styleClass="page-title"/>
+
+            <TextField fx:id="idField" promptText="Entrer ID Service" styleClass="input"/>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="14" alignment="CENTER_RIGHT" styleClass="bottom-action-bar">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Retour services" onAction="#goServices" styleClass="dark-button"/>
+            <Button text="Supprimer" onAction="#deleteService" styleClass="danger-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        html, body { margin: 0; padding: 0; height: 100%; font-family: system-ui, sans-serif; }
+        #map { width: 100%; height: 520px; border-radius: 10px; overflow: hidden; }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+var map;
+var marker;
+
+function initMapBridge() {
+    map = L.map('map').setView([36.8065, 10.1815], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    map.on('click', function (e) {
+        if (marker) {
+            map.removeLayer(marker);
+        }
+        marker = L.marker(e.latlng).addTo(map);
+        try {
+            if (window.javaBridge) {
+                window.javaBridge.reportClick(e.latlng.lat, e.latlng.lng);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    });
+}
+</script>
+</body>
+</html>

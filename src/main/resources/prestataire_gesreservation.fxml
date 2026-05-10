@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.PrestataireGestionReservationController"
+            prefWidth="1200"
+            prefHeight="750"
+            stylesheets="@style.css"
+            styleClass="root">
+
+    <left>
+        <VBox spacing="25" styleClass="sidebar">
+            <Label text="🐾 PURRLY" styleClass="logo"/>
+            <Separator orientation="HORIZONTAL" styleClass="sidebar-divider" maxWidth="Infinity"/>
+            <Button text="Accueil" onAction="#goDashboard" styleClass="menu-button"/>
+            <Button text="Mes Services" onAction="#goMesServices" styleClass="menu-button"/>
+            <Button text="📋 Réservations reçues" onAction="#goReservations" styleClass="menu-button-active"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="20" styleClass="content">
+
+            <!-- Titre -->
+            <Label text="📋 Gestion des réservations reçues" styleClass="page-title"/>
+
+            <!-- Seulement le filtre (sans boutons Appliquer/Actualiser) -->
+            <HBox spacing="15" styleClass="filter-bar">
+                <ComboBox fx:id="filtreStatut"
+                          promptText="Toutes"
+                          prefWidth="150"
+                          styleClass="filter-combo"/>
+            </HBox>
+
+            <!-- Statistiques -->
+            <HBox spacing="20" styleClass="stats-bar">
+                <VBox styleClass="stat-card">
+                    <Label text="⏳ En attente" styleClass="stat-label"/>
+                    <Label fx:id="statEnAttente" text="0" styleClass="stat-value-enattente"/>
+                </VBox>
+                <VBox styleClass="stat-card">
+                    <Label text="✅ Confirmées" styleClass="stat-label"/>
+                    <Label fx:id="statConfirmees" text="0" styleClass="stat-value-confirmee"/>
+                </VBox>
+                <VBox styleClass="stat-card">
+                    <Label text="❌ Refusées" styleClass="stat-label"/>
+                    <Label fx:id="statRefusees" text="0" styleClass="stat-value-refusee"/>
+                </VBox>
+                <VBox styleClass="stat-card">
+                    <Label text="🚫 Annulées" styleClass="stat-label"/>
+                    <Label fx:id="statAnnulees" text="0" styleClass="stat-value-annulee"/>
+                </VBox>
+                <VBox styleClass="stat-card">
+                    <Label text="💰 Revenus totaux" styleClass="stat-label"/>
+                    <Label fx:id="statRevenus" text="0 DT" styleClass="stat-value-revenu"/>
+                </VBox>
+            </HBox>
+
+            <!-- Liste des réservations -->
+            <ScrollPane fitToWidth="true"
+                        hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED"
+                        styleClass="scroll-pane"
+                        VBox.vgrow="ALWAYS">
+
+                <VBox fx:id="reservationsContainer"
+                      spacing="22"
+                      styleClass="cards-container"/>
+
+            </ScrollPane>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="14" alignment="CENTER_RIGHT" styleClass="bottom-action-bar">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="← Retour"
+                    onAction="#goBack"
+                    styleClass="dark-button"/>
+            <Button text="Actualiser"
+                    onAction="#actualiser"
+                    styleClass="primary-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.AdminUpdateServiceController"
+            prefWidth="1200"
+            prefHeight="750"
+            stylesheets="@style.css"
+            styleClass="root">
+
+    <left>
+        <VBox spacing="25" styleClass="sidebar">
+            <Label text="🐾 PURRLY" styleClass="logo"/>
+            <Separator orientation="HORIZONTAL" styleClass="sidebar-divider" maxWidth="Infinity"/>
+            <Button text="Accueil" onAction="#goDashboard" styleClass="menu-button"/>
+            <Button text="Services" onAction="#goServices" styleClass="menu-button-active"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="18" styleClass="form-container">
+
+            <Label text="Modifier un Service" styleClass="page-title"/>
+
+            <HBox spacing="12">
+                <TextField fx:id="idField" promptText="ID Service" styleClass="input-small"/>
+                <Button text="Rechercher" onAction="#searchService" styleClass="dark-button"/>
+            </HBox>
+
+            <TextField fx:id="titleField" promptText="Titre" styleClass="input"/>
+            <TextField fx:id="typeField" promptText="Type" styleClass="input"/>
+            <TextArea fx:id="descriptionField" promptText="Description" prefHeight="120" styleClass="input"/>
+            <TextField fx:id="tarifField" promptText="Tarif" styleClass="input"/>
+
+            <VBox spacing="8">
+                <Button text="Choisir sur la carte" onAction="#openMapPicker" styleClass="dark-button"/>
+                <Label text="Carte interactive : cliquez sur le lieu exact ; vous pouvez encore modifier le texte après coup."
+                       wrapText="true"
+                       styleClass="subtitle"/>
+                <TextField fx:id="localisationField" promptText="Localisation enregistrée (éditable)" styleClass="input"/>
+            </VBox>
+
+            <TextField fx:id="statusField" promptText="Status" styleClass="input" editable="false"/>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="14" alignment="CENTER_RIGHT" styleClass="bottom-action-bar">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Retour services" onAction="#goServices" styleClass="dark-button"/>
+            <Button text="Modifier" onAction="#updateService" styleClass="primary-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

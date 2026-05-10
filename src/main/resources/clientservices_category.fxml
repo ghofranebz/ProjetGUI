@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.ClientServicesCategoryController"
+            prefWidth="1200"
+            prefHeight="750"
+            stylesheets="@style.css"
+            styleClass="root client-app-root">
+
+    <left>
+        <VBox spacing="25" styleClass="client-sidebar">
+            <Label text="🐾 PURRLY" styleClass="client-logo"/>
+            <Separator orientation="HORIZONTAL" styleClass="sidebar-divider" maxWidth="Infinity"/>
+            <Button text="Accueil" onAction="#goDashboard" styleClass="client-menu-button"/>
+            <Button text="Services" onAction="#goServices" styleClass="client-menu-button-active"/>
+            <Button text="Mes réservations" onAction="#goReservations" styleClass="client-menu-button"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="20" styleClass="content client-content">
+
+            <HBox spacing="15" styleClass="top-line" alignment="CENTER_LEFT">
+                <Label fx:id="categoryTitleLabel" text="Services" styleClass="client-page-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="← Retour aux catégories" onAction="#goHub" styleClass="ghost-outline-button"/>
+            </HBox>
+
+            <ScrollPane fitToWidth="true"
+                        hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED"
+                        styleClass="scroll-pane">
+
+                <VBox fx:id="servicesContainer"
+                      spacing="22"
+                      styleClass="cards-container"/>
+            </ScrollPane>
+
+        </VBox>
+    </center>
+
+</BorderPane>

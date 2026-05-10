@@ -1,0 +1,1259 @@
+/* ============================================================
+   PURRLY — thème aligné « Pet Shop » (référence intégration)
+   Fond pierre #E5E4DE · sidebar marine · surfaces blanches · accent orange
+   ============================================================ */
+
+.root {
+    -fx-font-family: "Segoe UI", "Inter", system-ui, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: transparent;
+}
+
+/* ----- Barre latérale (style boutique : marine uni, item actif souligné à gauche) ----- */
+.sidebar {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #151f33, #243757);
+    -fx-padding: 36 20 32 18;
+    -fx-pref-width: 258;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.22), 28, 0.14, 6, 0);
+}
+
+.logo {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 14 0;
+    -fx-letter-spacing: 0.4px;
+}
+
+.sidebar-divider {
+    -fx-padding: 6 4 16 4;
+    -fx-max-width: infinity;
+}
+
+.sidebar-divider .line {
+    -fx-background-color: rgba(255, 255, 255, 0.35);
+    -fx-pref-height: 2px;
+    -fx-min-height: 2px;
+}
+
+/* Logo sur fond clair (écran choix de rôle, marketing) */
+.logo-marketing {
+    -fx-text-fill: #243757;
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 8 0;
+    -fx-letter-spacing: 0.5px;
+}
+
+.menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #b8c9dc;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-width: 214px;
+    -fx-pref-height: 46px;
+    -fx-padding: 0 14 0 18;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: #eef3f9;
+}
+
+.menu-button:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+
+.menu-button-active {
+    -fx-background-color: rgba(255, 255, 255, 0.14);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-width: 214px;
+    -fx-pref-height: 46px;
+    -fx-padding: 0 14 0 14;
+    -fx-background-radius: 12px;
+    -fx-border-width: 0 0 0 4px;
+    -fx-border-color: transparent transparent transparent #ffffff;
+    -fx-cursor: hand;
+}
+
+/* ----- Zone principale ----- */
+.content {
+    -fx-padding: 36 44 44 40;
+    -fx-spacing: 22;
+}
+
+.form-container {
+    -fx-padding: 36 40 40 40;
+    -fx-max-width: 640px;
+    -fx-alignment: TOP_CENTER;
+    -fx-spacing: 14;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 20px;
+    -fx-border-color: rgba(36, 55, 87, 0.08);
+    -fx-border-radius: 20px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(21, 31, 51, 0.1), 32, 0.14, 0, 10);
+}
+
+.page-title {
+    -fx-font-family: "Georgia", "Times New Roman", "Palatino Linotype", serif;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d3748;
+}
+
+.subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b7280;
+    -fx-wrap-text: true;
+}
+
+.bold-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #243757;
+}
+
+.header-container {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 14 0;
+}
+
+/* Bandeau type « boutique » : carte blanche sous le titre de liste */
+.top-line {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 22 28 22 28;
+    -fx-spacing: 14;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 0 0 22 22;
+    -fx-border-color: rgba(36, 55, 87, 0.06);
+    -fx-border-width: 0 0 1px 0;
+    -fx-effect: dropshadow(gaussian, rgba(21, 31, 51, 0.08), 24, 0.12, 0, 6);
+}
+
+/* ----- Cartes tableau de bord ----- */
+.dashboard-card {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #243757;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-pref-width: 340px;
+    -fx-pref-height: 92px;
+    -fx-background-radius: 18px;
+    -fx-border-color: rgba(36, 55, 87, 0.1);
+    -fx-border-radius: 18px;
+    -fx-border-width: 1px;
+    -fx-padding: 0 24 0 24;
+    -fx-alignment: CENTER_LEFT;
+    -fx-effect: dropshadow(gaussian, rgba(21, 31, 51, 0.09), 26, 0.15, 0, 6);
+    -fx-cursor: hand;
+}
+
+.dashboard-card:hover {
+    -fx-background-color: #fafaf8;
+    -fx-border-color: rgba(232, 148, 84, 0.45);
+}
+
+/* ----- Cartes listes (services / réservations) ----- */
+.cards-container {
+    -fx-padding: 12 6 32 6;
+    -fx-spacing: 20;
+}
+
+.data-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 18px;
+    -fx-padding: 24 28;
+    -fx-pref-width: 840px;
+    -fx-spacing: 18;
+    -fx-border-color: rgba(36, 55, 87, 0.08);
+    -fx-border-radius: 18px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(21, 31, 51, 0.1), 28, 0.14, 0, 6);
+}
+
+.card-main-title {
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #243757;
+}
+
+.card-info {
+    -fx-font-size: 13px;
+    -fx-text-fill: #5c6570;
+}
+
+.id-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #9ca3af;
+}
+
+/* ----- Prestataire : carte réservation ----- */
+.reservation-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 18px;
+    -fx-padding: 22 24;
+    -fx-spacing: 12;
+    -fx-border-color: rgba(36, 55, 87, 0.08);
+    -fx-border-radius: 18px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(21, 31, 51, 0.08), 22, 0.12, 0, 4);
+}
+
+.details-grid {
+    -fx-padding: 4 0 0 0;
+}
+
+.price-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #243757;
+}
+
+.info-label-success {
+    -fx-text-fill: #15803d;
+    -fx-font-weight: bold;
+}
+
+.info-label-danger {
+    -fx-text-fill: #b91c1c;
+    -fx-font-weight: bold;
+}
+
+.info-label-warning {
+    -fx-text-fill: #b45309;
+    -fx-font-weight: bold;
+}
+
+.status-badge-en_attente {
+    -fx-background-color: rgba(245, 158, 11, 0.18);
+    -fx-text-fill: #b45309;
+    -fx-padding: 4 10;
+    -fx-background-radius: 999px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.status-badge-confirmee {
+    -fx-background-color: rgba(34, 197, 94, 0.18);
+    -fx-text-fill: #15803d;
+    -fx-padding: 4 10;
+    -fx-background-radius: 999px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.status-badge-refusee {
+    -fx-background-color: rgba(239, 68, 68, 0.15);
+    -fx-text-fill: #b91c1c;
+    -fx-padding: 4 10;
+    -fx-background-radius: 999px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.status-badge-annulee {
+    -fx-background-color: rgba(148, 163, 184, 0.22);
+    -fx-text-fill: #475569;
+    -fx-padding: 4 10;
+    -fx-background-radius: 999px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+/* ----- Boutons (primaire marine comme la référence boutique) ----- */
+.primary-button {
+    -fx-background-color: #243757;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 42px;
+    -fx-background-radius: 12px;
+    -fx-padding: 0 24 0 24;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #1c2d46;
+}
+
+.primary-button:pressed {
+    -fx-background-color:#0e3960;
+}
+
+.dark-button {
+    -fx-background-color: #4a5568;
+    -fx-text-fill: #f8fafc;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 42px;
+    -fx-background-radius: 12px;
+    -fx-padding: 0 22 0 22;
+    -fx-cursor: hand;
+}
+
+.dark-button:hover {
+    -fx-background-color: #3d4658;
+}
+
+.dark-button:pressed {
+    -fx-background-color: #2d3341;
+}
+
+.danger-button {
+    -fx-background-color: #dc2626;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 42px;
+    -fx-background-radius: 12px;
+    -fx-padding: 0 22 0 22;
+    -fx-cursor: hand;
+}
+
+.danger-button:hover {
+    -fx-background-color: #b91c1c;
+}
+
+.danger-button:pressed {
+    -fx-background-color: #991b1b;
+}
+
+.success-button {
+    -fx-background-color: #15803d;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 42px;
+    -fx-background-radius: 12px;
+    -fx-padding: 0 22 0 22;
+    -fx-cursor: hand;
+}
+
+.success-button:hover {
+    -fx-background-color: #166534;
+}
+
+.success-button:pressed {
+    -fx-background-color: #14532d;
+}
+
+/* ----- Champs ----- */
+.input {
+    -fx-pref-width: 520px;
+    -fx-pref-height: 44px;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-border-color: #d6d3cd;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-padding: 0 16 0 16;
+    -fx-font-size: 13px;
+    -fx-text-fill: #243757;
+}
+
+.input:focused {
+    -fx-border-color: #e89454;
+    -fx-border-width: 2px;
+}
+
+.input-small {
+    -fx-pref-width: 260px;
+    -fx-pref-height: 44px;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-border-color: #d6d3cd;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-padding: 0 14 0 14;
+    -fx-font-size: 13px;
+}
+
+.text-area.input {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-border-color: #d6d3cd;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-padding: 10 14;
+    -fx-font-size: 13px;
+}
+
+.text-area.input .content {
+    -fx-background-color: transparent;
+}
+
+.search-field {
+    -fx-pref-height: 44px;
+    -fx-background-radius: 14px;
+    -fx-border-radius: 18px;
+    -fx-border-color: #d6d3cd;
+    -fx-border-width: 1px;
+    -fx-background-color: #ffffff;
+    -fx-padding: 0 18 0 18;
+    -fx-font-size: 14px;
+}
+
+.filter-combo {
+    -fx-pref-height: 42px;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-border-color: #d6d3cd;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-font-size: 13px;
+    -fx-padding: 0 12 0 12;
+}
+
+.filter-bar {
+    -fx-padding: 6 0 18 0;
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 12;
+}
+
+.bottom-buttons {
+    -fx-padding: 18 0 0 0;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-spacing: 12;
+}
+
+/* ----- Stats prestataire ----- */
+.stats-bar {
+    -fx-padding: 6 0 18 0;
+    -fx-spacing: 14;
+}
+
+.stat-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 18px;
+    -fx-padding: 16;
+    -fx-pref-width: 172px;
+    -fx-pref-height: 92px;
+    -fx-alignment: TOP_LEFT;
+    -fx-spacing: 8;
+    -fx-border-color: #e8eef5;
+    -fx-border-radius: 18px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.05), 14, 0.12, 0, 2);
+}
+
+.stat-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #64748b;
+}
+
+.stat-value-enattente {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b45309;
+}
+
+.stat-value-confirmee {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #15803d;
+}
+
+.stat-value-refusee {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b91c1c;
+}
+
+.stat-value-annulee {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #475569;
+}
+
+.stat-value-revenu {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #243757;
+}
+
+/* ----- Défilement ----- */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ----- Table ----- */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #243757;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-pref-height: 40px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #f8fafc;
+    -fx-font-weight: bold;
+}
+
+/* ----- Messages ----- */
+.empty-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #64748b;
+    -fx-padding: 28 8 8 8;
+}
+
+.error-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #b91c1c;
+    -fx-padding: 16 8;
+}
+
+/* ----- Statuts services ----- */
+.status-en-attente {
+    -fx-text-fill: #d97706;
+    -fx-font-weight: bold;
+}
+
+.status-approuve {
+    -fx-text-fill: #15803d;
+    -fx-font-weight: bold;
+}
+
+.status-rejete {
+    -fx-text-fill: #dc2626;
+    -fx-font-weight: bold;
+}
+
+/* ----- Formulaires réservation (sections, grille, zone principale) ----- */
+.main-area-scroll {
+    -fx-background-color: #E5E4DE;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+}
+
+.main-area-scroll > .viewport {
+    -fx-background-color: #E5E4DE;
+}
+
+.form-container.form-layout-wide {
+    -fx-max-width: 720px;
+    -fx-min-width: 320px;
+}
+
+.form-intro {
+    -fx-spacing: 8;
+}
+
+.form-section-title {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #64748b;
+    -fx-letter-spacing: 0.07em;
+    -fx-padding: 22 0 8 0;
+}
+
+.form-section-title-first {
+    -fx-padding: 2 0 8 0;
+}
+
+.form-field {
+    -fx-spacing: 8;
+}
+
+.field-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #475569;
+}
+
+.form-row {
+    -fx-spacing: 18;
+    -fx-alignment: TOP_LEFT;
+}
+
+/* Colonnes en grille : autoriser l’expansion (évite labels « … » et champs écrasés) */
+.form-row > .form-field {
+    -fx-min-width: 200px;
+}
+
+.form-field > .input,
+.form-field > .input-small {
+    -fx-pref-width: infinity;
+    -fx-max-width: infinity;
+}
+
+.inline-field-row > .input {
+    -fx-pref-width: infinity;
+    -fx-max-width: infinity;
+}
+
+/**
+ * DatePicker en ligne : ne pas utiliser la classe .input (pref-width 520px),
+ * sinon deux calendriers side-by-side cassent le layout.
+ */
+.form-field > .date-picker.date-field {
+    -fx-pref-height: 44px;
+    -fx-min-height: 44px;
+    -fx-min-width: 200px;
+    -fx-pref-width: infinity;
+    -fx-max-width: infinity;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.form-field > .date-picker.date-field > .text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px 0 0 10px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 10px 0 0 10px;
+    -fx-border-width: 1px 0 1px 1px;
+    -fx-padding: 0 12 0 12;
+    -fx-font-size: 13px;
+    -fx-pref-height: 44px;
+    -fx-min-height: 44px;
+}
+
+.form-field > .date-picker.date-field:focused > .text-field {
+    -fx-border-color: #e89454;
+}
+
+.form-field > .date-picker.date-field > .arrow-button {
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 0 10px 10px 0;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 0 10px 10px 0;
+    -fx-border-width: 1px 1px 1px 0;
+    -fx-pref-width: 44px;
+    -fx-min-width: 44px;
+    -fx-pref-height: 44px;
+    -fx-min-height: 44px;
+}
+
+.form-field > .date-picker.date-field:focused > .arrow-button {
+    -fx-border-color: #e89454;
+}
+
+.form-row .field-label {
+    -fx-wrap-text: true;
+    -fx-max-width: infinity;
+}
+
+.input-readonly {
+    -fx-background-color: #f8fafc;
+    -fx-text-fill: #475569;
+}
+
+.input-readonly:focused {
+    -fx-border-color: #e2e8f0;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+.form-actions {
+    -fx-padding: 26 0 0 0;
+    -fx-spacing: 12;
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.form-field > .combo-box,
+.form-field > .combo-box-base {
+    -fx-max-width: infinity;
+}
+
+.form-combo > .list-cell {
+    -fx-text-fill: #243757;
+}
+
+/* Petit badge type « Nouveau » (référence boutique) — à utiliser sur une Label si besoin */
+.badge-soft {
+    -fx-background-color: rgba(196, 165, 116, 0.35);
+    -fx-text-fill: #3d331f;
+    -fx-padding: 4 12;
+    -fx-background-radius: 999px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* ----- Bloc "Comment ça marche" (inspiré web) ----- */
+.how-block {
+    -fx-background-color: rgba(255, 255, 255, 0.92);
+    -fx-background-radius: 18px;
+    -fx-padding: 18 18 16 18;
+    -fx-border-color: rgba(36, 55, 87, 0.10);
+    -fx-border-radius: 18px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(21, 31, 51, 0.06), 16, 0.12, 0, 4);
+}
+
+.how-block-title {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.how-block-subtitle {
+    -fx-text-fill: #475569;
+    -fx-font-size: 12px;
+}
+
+.how-cards {
+    -fx-padding: 10 0 0 0;
+}
+
+.how-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16px;
+    -fx-padding: 14 14 12 14;
+    -fx-border-color: rgba(36, 55, 87, 0.08);
+    -fx-border-radius: 16px;
+    -fx-border-width: 1px;
+}
+
+.how-card-title {
+    -fx-text-fill: #243757;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.how-card-desc {
+    -fx-text-fill: #475569;
+    -fx-font-size: 12px;
+}
+
+/* ----- Hub client « Nos services » (cartes catégories) ----- */
+.client-hub-stack {
+    -fx-padding: 0 0 24 0;
+}
+
+.service-hub-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 22px;
+    -fx-border-color: rgba(36, 55, 87, 0.10);
+    -fx-border-radius: 22px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(21, 31, 51, 0.08), 26, 0.14, 0, 8);
+    -fx-max-width: 980px;
+}
+
+.service-hub-photo-frame {
+    -fx-padding: 14 14 14 18;
+}
+
+.service-hub-body {
+    -fx-padding: 22 28 22 10;
+    -fx-spacing: 10;
+}
+
+.service-hub-main-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0e3960;
+}
+
+.service-hub-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748b;
+}
+
+.service-hub-desc {
+    -fx-font-size: 13px;
+    -fx-text-fill: #334155;
+}
+
+.service-hub-bullets {
+    -fx-padding: 6 0 0 0;
+}
+
+.hub-bullet-point {
+    -fx-font-size: 13px;
+    -fx-text-fill: #243757;
+}
+
+.hub-explore-btn {
+    -fx-max-width: infinity;
+    -fx-padding: 12 28;
+    -fx-background-color: #1e2f54;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-background-radius: 999px;
+    -fx-border-radius: 999px;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+}
+
+.hub-explore-btn:hover {
+    -fx-background-color: #243757;
+}
+
+.hub-explore-btn:pressed {
+    -fx-background-color: #0e3960;
+}
+
+.hub-explore-btn:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Bandeau motivation hub client — plat sur le fond du thème (sans carte) */
+.motivation-strip-flat {
+    -fx-background-color: transparent;
+    -fx-padding: 8 8 28 8;
+    -fx-max-width: 980px;
+}
+
+.motivation-flat-graphic-wrap {
+    -fx-min-width: 280px;
+    -fx-min-height: 180px;
+}
+
+.motivation-flat-image {
+    -fx-smooth: true;
+}
+
+.motivation-banner-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0e3960;
+}
+
+.motivation-banner-body {
+    -fx-font-size: 14px;
+    -fx-text-fill: #334155;
+    -fx-wrap-text: true;
+}
+
+.ghost-outline-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #243757;
+    -fx-border-color: #243757;
+    -fx-border-radius: 14px;
+    -fx-background-radius: 14px;
+    -fx-border-width: 2px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 18;
+}
+
+.ghost-outline-button:hover {
+    -fx-background-color: rgba(36, 55, 87, 0.06);
+}
+
+/* Pop-up contacter prestataire (client) */
+.contact-popup-root {
+    -fx-background-color: #ffffff;
+}
+
+.contact-popup-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0e3960;
+}
+
+/* ----- Choix catégorie service (cartes Toilettage / Gardes / Premium) ----- */
+.service-category-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 18px;
+    -fx-border-color: rgba(36, 55, 87, 0.1);
+    -fx-border-radius: 18px;
+    -fx-border-width: 1px;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(21, 31, 51, 0.08), 22, 0.14, 0, 5);
+}
+
+.service-category-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #243757;
+}
+
+.service-category-card .primary-button {
+    -fx-max-width: infinity;
+}
+
+/* Rangée horizontale des cartes catégories + scroll horizontal */
+.category-cards-scroll {
+    -fx-background-color: transparent;
+}
+
+.category-cards-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.category-cards-row {
+    -fx-padding: 10 8 16 8;
+}
+
+.category-card-image {
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+}
+
+.category-card-body {
+    -fx-padding: 0 0 18 0;
+    -fx-alignment: CENTER;
+}
+
+.category-card-caption {
+    -fx-background-color: rgb(14, 57, 96);
+    -fx-padding: 12 14;
+}
+
+.category-card-caption-text {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-letter-spacing: 1px;
+}
+
+.category-card-desc {
+    -fx-padding: 10 16 0 16;
+    -fx-text-fill: #334155;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER;
+    -fx-wrap-text: true;
+}
+
+.category-card-cta {
+    -fx-background-color: #475569;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    -fx-padding: 10 18;
+}
+
+.category-card-cta:hover {
+    -fx-background-color: #334155;
+}
+
+/* ----- Réservation client : panneau "Comment ça marche" ----- */
+.how-it-works-panel {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 18px;
+    -fx-padding: 22;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 18, 0.12, 0, 6);
+}
+
+.how-it-works-panel-top {
+    -fx-padding: 22;
+    -fx-background-insets: 0;
+}
+
+.how-title {
+    -fx-text-fill: #0e3960;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.how-subtitle {
+    -fx-text-fill: #334155;
+    -fx-font-size: 12px;
+}
+
+/* Carte info service (image + texte) */
+.service-info-card {
+    -fx-padding: 10 0 0 0;
+}
+
+.service-info-image {
+    -fx-background-radius: 14px;
+    -fx-border-radius: 14px;
+}
+
+.service-triangle-card {
+    -fx-padding: 12 0 0 0;
+    -fx-alignment: TOP_LEFT;
+}
+
+.service-triangle-wrap {
+    -fx-min-width: 240px;
+    -fx-min-height: 160px;
+    -fx-pref-width: 240px;
+    -fx-pref-height: 160px;
+    -fx-max-width: 240px;
+    -fx-max-height: 160px;
+}
+
+.service-triangle-image {
+    -fx-smooth: true;
+}
+
+.service-triangle-text {
+    -fx-padding: 2 0 0 0;
+}
+
+.service-info-title {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.service-info-meta {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 12px;
+}
+
+.service-info-desc {
+    -fx-text-fill: #334155;
+    -fx-font-size: 12px;
+}
+
+/* Barre d’actions fixée en bas (retour / validation — tous les écrans formulaires & listes) */
+.bottom-action-bar {
+    -fx-padding: 16 44 22 44;
+    -fx-background-color: #ffffff;
+    -fx-border-color: rgba(36, 55, 87, 0.08);
+    -fx-border-width: 1px 0 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(21, 31, 51, 0.06), 12, 0.12, 0, -3);
+}
+
+/* ============================================================
+   Espace CLIENT — zone centrale claire ; menu latéral = même ligne
+   graphique que l’admin (sidebar marine dégradée, item actif barre blanche).
+   BorderPane racine : « root » + « client-app-root ».
+   ============================================================ */
+
+.client-app-root {
+    -fx-background-color: #f3f6f4;
+}
+
+.client-sidebar {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #151f33, #243757);
+    -fx-padding: 36 20 32 18;
+    -fx-pref-width: 258;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.22), 28, 0.14, 6, 0);
+}
+
+.client-logo {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 14 0;
+    -fx-letter-spacing: 0.35px;
+}
+
+.client-menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #b8c9dc;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-width: 214px;
+    -fx-pref-height: 46px;
+    -fx-padding: 0 14 0 18;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+}
+
+.client-menu-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: #eef3f9;
+}
+
+.client-menu-button:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+
+.client-menu-button-active {
+    -fx-background-color: rgba(255, 255, 255, 0.14);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-width: 214px;
+    -fx-pref-height: 46px;
+    -fx-padding: 0 14 0 14;
+    -fx-background-radius: 12px;
+    -fx-border-width: 0 0 0 4px;
+    -fx-border-color: transparent transparent transparent #ffffff;
+    -fx-cursor: hand;
+}
+
+.client-menu-button-active:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.18);
+}
+
+.client-menu-button-active:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.client-content {
+    -fx-padding: 30 48 40 56;
+    -fx-spacing: 22;
+}
+
+.client-page-title {
+    -fx-font-family: "Segoe UI", system-ui, sans-serif;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #243757;
+}
+
+.client-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+    -fx-wrap-text: true;
+}
+
+.client-app-root .top-line {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-padding: 20 26;
+    -fx-border-color: rgba(0, 0, 0, 0.06);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.05), 16, 0.12, 0, 3);
+}
+
+.client-app-root .dashboard-card {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #243757;
+    -fx-background-radius: 16px;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1px;
+    -fx-padding: 0 28 0 52;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.04), 14, 0.1, 0, 2);
+}
+
+.client-app-root .dashboard-card:hover {
+    -fx-background-color: #fafafa;
+    -fx-border-color: rgba(21, 145, 92, 0.45);
+}
+
+.client-app-root .service-hub-card {
+    -fx-background-radius: 18px;
+    -fx-border-color: rgba(0, 0, 0, 0.05);
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.04), 18, 0.12, 0, 4);
+}
+
+.client-app-root .service-hub-main-title {
+    -fx-text-fill: #111827;
+}
+
+.client-app-root .hub-explore-btn {
+    -fx-background-color: #15915c;
+}
+
+.client-app-root .hub-explore-btn:hover {
+    -fx-background-color: #11764a;
+}
+
+.client-app-root .hub-explore-btn:pressed {
+    -fx-background-color: #0d5c3a;
+}
+
+.client-app-root .motivation-banner-title {
+    -fx-text-fill: #0e3960;
+}
+
+.client-app-root .primary-button {
+    -fx-background-color: #15915c;
+    -fx-background-radius: 999px;
+    -fx-padding: 0 22 0 22;
+}
+
+.client-app-root .primary-button:hover {
+    -fx-background-color: #11764a;
+}
+
+.client-app-root .primary-button:pressed {
+    -fx-background-color: #0d5c3a;
+}
+
+.client-app-root .dark-button {
+    -fx-background-color: #e8ece9;
+    -fx-text-fill: #374151;
+    -fx-background-radius: 999px;
+}
+
+.client-app-root .dark-button:hover {
+    -fx-background-color: #dce4e0;
+}
+
+.client-app-root .dark-button:pressed {
+    -fx-background-color: #cdd6d2;
+}
+
+.client-app-root .ghost-outline-button {
+    -fx-text-fill: #15915c;
+    -fx-border-color: rgba(21, 145, 92, 0.55);
+    -fx-background-radius: 999px;
+    -fx-border-radius: 999px;
+}
+
+.client-app-root .ghost-outline-button:hover {
+    -fx-background-color: rgba(21, 145, 92, 0.08);
+}
+
+.client-app-root .search-field {
+    -fx-background-radius: 999px;
+    -fx-border-radius: 999px;
+    -fx-border-color: #e5e7eb;
+    -fx-background-color: #fafcfb;
+}
+
+.client-app-root .search-field:focused {
+    -fx-border-color: #15915c;
+    -fx-background-color: #ffffff;
+}
+
+.client-app-root .data-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e8ece9;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.05), 16, 0.12, 0, 3);
+}
+
+.client-app-root .card-main-title {
+    -fx-text-fill: #111827;
+}
+
+.client-app-root .empty-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #64748b;
+    -fx-padding: 36 28 36 28;
+}
+
+.client-menu-button:focused,
+.client-menu-button-active:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Avis (réservations + catalogue client) */
+.review-inline {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b45309;
+}
+
+.review-comment-preview {
+    -fx-font-size: 12px;
+    -fx-text-fill: #64748b;
+    -fx-font-style: italic;
+    -fx-wrap-text: true;
+}
+
+.service-rating-summary {
+    -fx-font-size: 13px;
+    -fx-text-fill: #92400e;
+    -fx-font-weight: bold;
+}
+
+.client-app-root .service-rating-summary {
+    -fx-text-fill: #92400e;
+}

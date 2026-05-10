@@ -1,9 +1,9 @@
 package entities;
 
-
 import java.time.LocalDateTime;
 
 public class Service {
+
     private int id_services;
     private String title;
     private String type;
@@ -12,6 +12,7 @@ public class Service {
     private String localisation;
     private int user_id;
     private LocalDateTime createdAt;
+    private String status; // 🔥 NOUVEAU : en_attente, approuve, rejete
 
     public Service() {
     }
@@ -19,6 +20,7 @@ public class Service {
     public Service(int id_services, String title, String type, String description,
                    float tarif, String localisation, int user_id,
                    LocalDateTime createdAt) {
+
         this.id_services = id_services;
         this.title = title;
         this.type = type;
@@ -27,8 +29,26 @@ public class Service {
         this.localisation = localisation;
         this.user_id = user_id;
         this.createdAt = createdAt;
+        this.status = "en_attente"; // 🔥 STATUT PAR DÉFAUT
     }
 
+    // 🔥 NOUVEAU CONSTRUCTEUR AVEC STATUS
+    public Service(int id_services, String title, String type, String description,
+                   float tarif, String localisation, int user_id,
+                   LocalDateTime createdAt, String status) {
+
+        this.id_services = id_services;
+        this.title = title;
+        this.type = type;
+        this.description = description;
+        this.tarif = tarif;
+        this.localisation = localisation;
+        this.user_id = user_id;
+        this.createdAt = createdAt;
+        this.status = status;
+    }
+
+    // GETTERS ET SETTERS
     public int getId_services() {
         return id_services;
     }
@@ -93,10 +113,19 @@ public class Service {
         this.createdAt = createdAt;
     }
 
+    // 🔥 GETTER ET SETTER POUR STATUS
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Service{" +
-                "id=" + id_services +
+                "id_services=" + id_services +
                 ", title='" + title + '\'' +
                 ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
@@ -104,6 +133,7 @@ public class Service {
                 ", localisation='" + localisation + '\'' +
                 ", user_id=" + user_id +
                 ", createdAt=" + createdAt +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

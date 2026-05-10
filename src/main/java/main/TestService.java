@@ -19,9 +19,7 @@ public class TestService {
 
         try {
 
-            // =========================
-            // 1) AJOUT SERVICE
-            // =========================
+
             System.out.println("=== Ajouter un service ===");
 
             System.out.print("Title : ");
@@ -56,17 +54,13 @@ public class TestService {
             serviceAnimal.addEntity(s1);
             System.out.println("Service ajouté !");
 
-            // =========================
-            // 2) AFFICHER SERVICES
-            // =========================
+
             List<Service> allServices = serviceAnimal.getAllEntities();
 
             System.out.println("\n=== Liste des services ===");
             allServices.forEach(System.out::println);
 
-            // =========================
-            // 3) AJOUT RESERVATION CLIENT
-            // =========================
+
             System.out.println("\n=== Ajouter une réservation ===");
 
             System.out.print("ID Service : ");
@@ -101,17 +95,13 @@ public class TestService {
             serviceReservation.addEntity(r);
             System.out.println("Réservation ajoutée !");
 
-            // =========================
-            // 4) AFFICHER RESERVATIONS
-            // =========================
+
             List<Reservation> allReservations = serviceReservation.getAllEntities();
 
             System.out.println("\n=== Liste des réservations ===");
             allReservations.forEach(System.out::println);
 
-            // =========================
-            // 5) ANNULER RESERVATION
-            // =========================
+
             System.out.print("\nID réservation à annuler : ");
             int idCancel = sc.nextInt();
             sc.nextLine();
@@ -121,9 +111,7 @@ public class TestService {
 
             serviceReservation.annulerReservation(idCancel, reason);
 
-            // =========================
-            // 6) SUPPRESSION SERVICE
-            // =========================
+
             System.out.print("\nID service à supprimer : ");
             int idDelete = sc.nextInt();
 

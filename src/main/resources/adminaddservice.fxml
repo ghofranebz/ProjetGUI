@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.AdminAddServiceController"
+            prefWidth="1200"
+            prefHeight="750"
+            stylesheets="@style.css"
+            styleClass="root">
+
+    <left>
+        <VBox spacing="25" styleClass="sidebar">
+            <Label text="🐾 PURRLY" styleClass="logo"/>
+            <Separator orientation="HORIZONTAL" styleClass="sidebar-divider" maxWidth="Infinity"/>
+            <Button text="Accueil" onAction="#goDashboard" styleClass="menu-button"/>
+            <Button text="Services" onAction="#goServices" styleClass="menu-button"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="20" styleClass="content" alignment="TOP_CENTER">
+
+            <Label text="➕ Ajouter un nouveau service" styleClass="page-title"/>
+
+            <GridPane hgap="15" vgap="15" alignment="CENTER">
+
+                <Label text="Titre :" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="bold-label"/>
+                <TextField fx:id="titleField" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="300" styleClass="input"/>
+
+                <Label text="Type :" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="bold-label"/>
+                <TextField fx:id="typeField" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="300" styleClass="input"/>
+
+                <Label text="Description :" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="bold-label"/>
+                <TextArea fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="300" prefHeight="80" styleClass="input"/>
+
+                <Label text="Tarif (DT/jour) :" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="bold-label"/>
+                <TextField fx:id="tarifField" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="300" styleClass="input"/>
+
+                <Label text="Localisation :" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="bold-label"
+                       GridPane.valignment="TOP"/>
+                <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="420">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Button text="Choisir sur la carte" onAction="#openMapPicker" styleClass="dark-button"/>
+                    </HBox>
+                    <Label text="Carte interactive : cliquez sur le lieu exact ; l’adresse et les coordonnées sont remplies automatiquement."
+                           wrapText="true"
+                           styleClass="subtitle"/>
+                    <TextField fx:id="localisationField"
+                               promptText="Adresse précise enregistrée pour le service"
+                               prefWidth="420"
+                               styleClass="input"/>
+                </VBox>
+
+                <Label text="Statut :" GridPane.columnIndex="0" GridPane.rowIndex="5" styleClass="bold-label"/>
+                <TextField fx:id="statusField" GridPane.columnIndex="1" GridPane.rowIndex="5"
+                           prefWidth="300" styleClass="input"
+                           editable="false" text="⏳ En attente "/>
+
+            </GridPane>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="14" alignment="CENTER_RIGHT" styleClass="bottom-action-bar">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Annuler" onAction="#goBack" styleClass="danger-button"/>
+            <Button text="Ajouter" onAction="#ajouterService" styleClass="primary-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

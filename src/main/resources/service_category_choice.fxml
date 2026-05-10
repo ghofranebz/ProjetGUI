@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Rectangle?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.ServiceCategoryChoiceController"
+            prefWidth="1200"
+            prefHeight="750"
+            stylesheets="@style.css"
+            styleClass="root">
+
+    <left>
+        <VBox spacing="25" styleClass="sidebar">
+            <Label text="🐾 PURRLY" styleClass="logo"/>
+            <Separator orientation="HORIZONTAL" styleClass="sidebar-divider" maxWidth="Infinity"/>
+            <Button text="Accueil" onAction="#goDashboard" styleClass="menu-button"/>
+            <Button text="Services" onAction="#goServices" styleClass="menu-button-active"/>
+            <Button text="Admin" onAction="#goAdmin" styleClass="menu-button"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="28" styleClass="content">
+
+            <VBox spacing="10">
+                <Label text="Type de service" styleClass="page-title"/>
+                <Label text="Choisissez une carte : le titre du formulaire sera rempli automatiquement. Vous pourrez tout modifier avant d’enregistrer."
+                       styleClass="subtitle"
+                       wrapText="true"/>
+            </VBox>
+
+            <ScrollPane fitToHeight="true"
+                        fitToWidth="false"
+                        hbarPolicy="AS_NEEDED"
+                        vbarPolicy="NEVER"
+                        pannable="true"
+                        styleClass="scroll-pane category-cards-scroll"
+                        VBox.vgrow="ALWAYS"
+                        minHeight="352"
+                        prefViewportHeight="352"
+                        maxHeight="Infinity">
+
+                <HBox spacing="28" alignment="CENTER_LEFT" styleClass="category-cards-row">
+
+                    <VBox spacing="0" styleClass="service-category-card" minWidth="300" prefWidth="300" maxWidth="300">
+                        <ImageView fx:id="imgToilettage"
+                                   fitWidth="278"
+                                   fitHeight="156"
+                                   preserveRatio="false"
+                                   smooth="true"
+                                   styleClass="category-card-image"/>
+                        <VBox spacing="10" styleClass="category-card-body">
+                            <HBox alignment="CENTER" styleClass="category-card-caption">
+                                <Label text="TOILETTAGE" styleClass="category-card-caption-text"/>
+                            </HBox>
+                            <Label text="Bain, coupe, brossage et soins pour un compagnon propre et soigné."
+                                   wrapText="true"
+                                   styleClass="category-card-desc"/>
+                            <Button text="Ajouter service" onAction="#pickToilettage" styleClass="category-card-cta"/>
+                        </VBox>
+                    </VBox>
+
+                    <VBox spacing="0" styleClass="service-category-card" minWidth="280" prefWidth="280" maxWidth="280">
+                        <ImageView fx:id="imgGardes"
+                                   fitWidth="260"
+                                   fitHeight="140"
+                                   preserveRatio="false"
+                                   smooth="true"
+                                   styleClass="category-card-image"/>
+                        <VBox spacing="10" styleClass="category-card-body">
+                            <HBox alignment="CENTER" styleClass="category-card-caption">
+                                <Label text="GARDES" styleClass="category-card-caption-text"/>
+                            </HBox>
+                            <Label text="Garde à domicile ou en pension : surveillance, repas et présence."
+                                   wrapText="true"
+                                   styleClass="category-card-desc"/>
+                            <Button text="Ajouter service" onAction="#pickGardes" styleClass="category-card-cta"/>
+                        </VBox>
+                    </VBox>
+
+                    <VBox spacing="0" styleClass="service-category-card" minWidth="300" prefWidth="300" maxWidth="300">
+                        <ImageView fx:id="imgDressage"
+                                   fitWidth="278"
+                                   fitHeight="156"
+                                   preserveRatio="false"
+                                   smooth="true"
+                                   styleClass="category-card-image"/>
+                        <VBox spacing="10" styleClass="category-card-body">
+                            <HBox alignment="CENTER" styleClass="category-card-caption">
+                                <Label text="DRESSAGE" styleClass="category-card-caption-text"/>
+                            </HBox>
+                            <Label text="Éducation et obéissance : apprentissage des ordres et socialisation."
+                                   wrapText="true"
+                                   styleClass="category-card-desc"/>
+                            <Button text="Ajouter service" onAction="#pickDressage" styleClass="category-card-cta"/>
+                        </VBox>
+                    </VBox>
+
+                    <VBox spacing="0" styleClass="service-category-card" minWidth="300" prefWidth="300" maxWidth="300">
+                        <ImageView fx:id="imgPremium"
+                                   fitWidth="278"
+                                   fitHeight="156"
+                                   preserveRatio="false"
+                                   smooth="true"
+                                   styleClass="category-card-image"/>
+                        <VBox spacing="10" styleClass="category-card-body">
+                            <HBox alignment="CENTER" styleClass="category-card-caption">
+                                <Label text="PREMIUM" styleClass="category-card-caption-text"/>
+                            </HBox>
+                            <Label text="Offre haut de gamme : promenade, photo, spa et bien‑être."
+                                   wrapText="true"
+                                   styleClass="category-card-desc"/>
+                            <Button text="Ajouter service" onAction="#pickPremium" styleClass="category-card-cta"/>
+                        </VBox>
+                    </VBox>
+
+                </HBox>
+            </ScrollPane>
+
+            <!-- Encouragement prestataires : même esprit « plat » que le hub client -->
+            <HBox styleClass="motivation-strip-flat" alignment="CENTER_LEFT" spacing="32">
+                <StackPane styleClass="motivation-flat-graphic-wrap">
+                    <ImageView fitWidth="280" fitHeight="220" preserveRatio="true" smooth="true"
+                               styleClass="motivation-flat-image">
+                        <clip>
+                            <Rectangle width="280" height="220" arcWidth="18" arcHeight="18"/>
+                        </clip>
+                        <image>
+                            <Image url="@images/prestataire_motivation.png"/>
+                        </image>
+                    </ImageView>
+                </StackPane>
+                <VBox spacing="14" alignment="TOP_LEFT" HBox.hgrow="ALWAYS">
+                    <Label text="Restez zen, restez pro." styleClass="motivation-banner-title"/>
+                    <Label text="Sur PURRLY, votre sérieux se voit dans les détails : fiches complètes, tarifs transparents et lieu précis. Les familles vous font confiance quand tout est clair — avant même la première réservation."
+                           wrapText="true"
+                           styleClass="motivation-banner-body"/>
+                    <Label text="À chaque demande, un peu de bienveillance va très loin : réponses rapides, statuts à jour, et attention aux habitudes de l’animal. Un bon traitement du service, c’est aussi celui qu’on offre aux compagnons et à leurs humains."
+                           wrapText="true"
+                           styleClass="motivation-banner-body"/>
+                </VBox>
+            </HBox>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="14" alignment="CENTER_RIGHT" styleClass="bottom-action-bar">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="← Retour à la liste" onAction="#goBack" styleClass="dark-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.AdminDashboardController"
+            prefWidth="1200"
+            prefHeight="750"
+            stylesheets="@style.css"
+            styleClass="root">
+
+    <left>
+        <VBox spacing="25" styleClass="sidebar">
+            <Label text="🐾 PURRLY" styleClass="logo"/>
+            <Separator orientation="HORIZONTAL" styleClass="sidebar-divider" maxWidth="Infinity"/>
+            <Button text="Accueil" onAction="#goDashboard" styleClass="menu-button"/>
+            <Button text="Services" onAction="#goServices" styleClass="menu-button"/>
+
+            <!-- 🔥 NOUVEAU BOUTON DANS LA SIDEBAR -->
+            <Button text="Admin"
+                    onAction="#goAdmin"
+                    styleClass="menu-button"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="28" styleClass="content">
+
+            <Label text="Espace Administration" styleClass="page-title"/>
+
+            <Label text="Choisissez une gestion à partir du menu à gauche."
+                   styleClass="subtitle"/>
+
+            <VBox spacing="25">
+
+                <Button text="Gestion des Services"
+                        onAction="#goServices"
+                        styleClass="dashboard-card"/>
+
+                <!-- 🔥 NOUVELLE CARTE -->
+                <Button text="Admin"
+                        onAction="#goAdmin"
+                        styleClass="dashboard-card"/>
+
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

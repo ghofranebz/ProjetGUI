@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.AdminVerifierServicesController"
+            prefWidth="1200"
+            prefHeight="750"
+            stylesheets="@style.css"
+            styleClass="root">
+
+    <left>
+        <VBox spacing="25" styleClass="sidebar">
+            <Label text="🐾 PURRLY ADMIN" styleClass="logo"/>
+            <Separator orientation="HORIZONTAL" styleClass="sidebar-divider" maxWidth="Infinity"/>
+            <Button text="Accueil" onAction="#goDashboard" styleClass="menu-button"/>
+            <Button text="Tous les Services" onAction="#goServices" styleClass="menu-button"/>
+            <Button text="✅ Vérifier Services" onAction="#goVerifierServices" styleClass="menu-button-active"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="20" styleClass="content">
+
+            <!-- Titre -->
+            <Label text="✅ Vérifier service" styleClass="page-title"/>
+
+            <!-- Seulement le filtre (sans boutons Appliquer/Actualiser) -->
+            <HBox spacing="15" styleClass="filter-bar">
+                <ComboBox fx:id="filtreStatut"
+                          promptText="Filtrer par statut"
+                          prefWidth="180"
+                          styleClass="filter-combo"/>
+            </HBox>
+
+            <!-- Statistiques -->
+            <HBox spacing="20" styleClass="stats-bar">
+                <VBox styleClass="stat-card">
+                    <Label text="⏳ En attente" styleClass="stat-label"/>
+                    <Label fx:id="statEnAttente" text="0" styleClass="stat-value-enattente"/>
+                </VBox>
+                <VBox styleClass="stat-card">
+                    <Label text="✅ Approuvés" styleClass="stat-label"/>
+                    <Label fx:id="statApprouves" text="0" styleClass="stat-value-confirmee"/>
+                </VBox>
+                <VBox styleClass="stat-card">
+                    <Label text="❌ Rejetés" styleClass="stat-label"/>
+                    <Label fx:id="statRejetes" text="0" styleClass="stat-value-refusee"/>
+                </VBox>
+                <VBox styleClass="stat-card">
+                    <Label text="👥 Prestataires" styleClass="stat-label"/>
+                    <Label fx:id="statPrestataires" text="0" styleClass="stat-value-revenu"/>
+                </VBox>
+            </HBox>
+
+            <!-- Liste des services à vérifier -->
+            <ScrollPane fitToWidth="true"
+                        hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED"
+                        styleClass="scroll-pane"
+                        VBox.vgrow="ALWAYS">
+
+                <VBox fx:id="servicesContainer"
+                      spacing="22"
+                      styleClass="cards-container"/>
+
+            </ScrollPane>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="14" alignment="CENTER_RIGHT" styleClass="bottom-action-bar">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="← Retour"
+                    onAction="#goBack"
+                    styleClass="dark-button"/>
+            <Button text="🔄 Actualiser"
+                    onAction="#actualiser"
+                    styleClass="primary-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

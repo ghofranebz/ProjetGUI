@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.AdminAddReservationController"
+            prefWidth="1200"
+            prefHeight="750"
+            stylesheets="@style.css"
+            styleClass="root">
+
+    <left>
+        <VBox spacing="25" styleClass="sidebar">
+            <Label text="🐾 PURRLY" styleClass="logo"/>
+            <Separator orientation="HORIZONTAL" styleClass="sidebar-divider" maxWidth="Infinity"/>
+            <Button text="Accueil" onAction="#goDashboard" styleClass="menu-button"/>
+            <Button text="Services" onAction="#goServices" styleClass="menu-button"/>
+            <Button text="Mes réservations" onAction="#goReservations" styleClass="menu-button-active"/>
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="main-area-scroll">
+            <VBox alignment="TOP_CENTER" spacing="0" styleClass="content">
+
+                <!-- Formulaire (plus bas : on y arrive en scrollant) -->
+                <VBox spacing="22" styleClass="form-container form-layout-wide" maxWidth="820">
+
+                        <Label text="SERVICE ET ANIMAL" styleClass="form-section-title form-section-title-first"/>
+
+                        <VBox spacing="8" styleClass="form-field">
+                            <Label text="Service" styleClass="field-label"/>
+                            <ComboBox fx:id="serviceCombo"
+                                      styleClass="filter-combo form-combo"
+                                      prefHeight="44"
+                                      maxWidth="Infinity"/>
+                        </VBox>
+
+                        <VBox spacing="8" styleClass="form-field">
+                            <Label text="Animal" styleClass="field-label"/>
+                            <ComboBox fx:id="animalCombo"
+                                      styleClass="filter-combo form-combo"
+                                      prefHeight="44"
+                                      maxWidth="Infinity"/>
+                        </VBox>
+
+                        <Label text="PÉRIODE" styleClass="form-section-title"/>
+
+                        <HBox spacing="18" styleClass="form-row">
+                            <VBox spacing="8" styleClass="form-field" HBox.hgrow="ALWAYS" minWidth="0">
+                                <Label text="Date de début" styleClass="field-label" wrapText="true"/>
+                                <DatePicker fx:id="startDatePicker" promptText="jj/mm/aaaa" styleClass="date-field" maxWidth="Infinity"/>
+                            </VBox>
+                            <VBox spacing="8" styleClass="form-field" HBox.hgrow="ALWAYS" minWidth="0">
+                                <Label text="Date de fin" styleClass="field-label" wrapText="true"/>
+                                <DatePicker fx:id="endDatePicker" promptText="jj/mm/aaaa" styleClass="date-field" maxWidth="Infinity"/>
+                            </VBox>
+                        </HBox>
+
+                        <Label text="AUTRES" styleClass="form-section-title"/>
+
+                        <VBox spacing="8" styleClass="form-field">
+                            <Label text="Raison d’annulation (optionnel)" styleClass="field-label"/>
+                            <TextField fx:id="reasonField"
+                                       promptText="À renseigner uniquement en cas d’annulation"
+                                       styleClass="input"/>
+                        </VBox>
+
+                        <VBox spacing="8" styleClass="form-field">
+                            <Label text="Statut" styleClass="field-label"/>
+                            <TextField fx:id="statusField"
+                                       promptText="Statut"
+                                       styleClass="input input-readonly"
+                                       editable="false"
+                                       text="⏳ En attente (automatique)"/>
+                        </VBox>
+
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="14" alignment="CENTER_RIGHT" styleClass="bottom-action-bar">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Retour au catalogue" onAction="#goServices" styleClass="dark-button"/>
+            <Button text="Enregistrer la réservation" onAction="#addReservation" styleClass="primary-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

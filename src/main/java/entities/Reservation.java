@@ -1,6 +1,5 @@
 package entities;
 
-
 import java.sql.Date;
 
 public class Reservation {
@@ -12,6 +11,7 @@ public class Reservation {
     private Date end_date;
     private float total_price;
     private String cancelled_reason;
+    private String status;  // 🔥 NOUVEAU : en_attente, confirmee, refusee, annulee
 
     public Reservation() {}
 
@@ -25,8 +25,25 @@ public class Reservation {
         this.end_date = end_date;
         this.total_price = total_price;
         this.cancelled_reason = cancelled_reason;
+        this.status = "en_attente"; // 🔥 STATUT PAR DÉFAUT
     }
 
+    // 🔥 NOUVEAU CONSTRUCTEUR AVEC STATUS
+    public Reservation(int id_booking, int client_id, int id_service, int animal_id,
+                       Date start_date, Date end_date, float total_price,
+                       String cancelled_reason, String status) {
+        this.id_booking = id_booking;
+        this.client_id = client_id;
+        this.id_service = id_service;
+        this.animal_id = animal_id;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.total_price = total_price;
+        this.cancelled_reason = cancelled_reason;
+        this.status = status;
+    }
+
+    // GETTERS ET SETTERS
     public int getId_booking() { return id_booking; }
     public void setId_booking(int id_booking) { this.id_booking = id_booking; }
 
@@ -51,6 +68,10 @@ public class Reservation {
     public String getCancelled_reason() { return cancelled_reason; }
     public void setCancelled_reason(String cancelled_reason) { this.cancelled_reason = cancelled_reason; }
 
+    // 🔥 GETTER ET SETTER POUR STATUS
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
     @Override
     public String toString() {
         return "Reservation{" +
@@ -62,6 +83,7 @@ public class Reservation {
                 ", end_date=" + end_date +
                 ", total_price=" + total_price +
                 ", cancelled_reason='" + cancelled_reason + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
